@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { FC } from 'react';
+import { BsPencilSquare as Pencil } from 'react-icons/bs';
 import DarkMode from 'renderer/components/DarkMode';
 import Drawer from '../Drawer';
 
@@ -11,7 +12,7 @@ const Header: FC = () => {
           <label tabIndex={0} htmlFor="drawer" className="btn btn-ghost btn-circle">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-5 h-5"
+              className="w-7 h-7"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -27,17 +28,18 @@ const Header: FC = () => {
         </div>
         <div className="navbar-center">
           <Link href="/" passHref>
-            <a className="text-xl normal-case btn btn-ghost">Office Goods</a>
+            <a className="text-2xl normal-case btn btn-ghost">🎁 Office Goods</a>
           </Link>
         </div>
         <div className="navbar-end">
           <DarkMode />
-          <button className="mx-4 btn btn-primary">로그인</button>
-          <button className="mr-4 btn btn-outline">회원가입</button>
+          <button className="mx-4 btn btn-ghost btn-circle">
+            <Pencil className="w-7 h-7" />
+          </button>
           <button className="mr-4 btn btn-ghost btn-circle">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-5 h-5"
+              className="w-7 h-7"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -50,11 +52,11 @@ const Header: FC = () => {
               />
             </svg>
           </button>
-          <button className="btn btn-ghost btn-circle">
+          <button className="text-lg btn btn-ghost btn-circle">
             <div className="indicator">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-5 h-5"
+                className="w-7 h-7"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -69,6 +71,8 @@ const Header: FC = () => {
               <span className="badge badge-xs badge-primary indicator-item" />
             </div>
           </button>
+          <button className="w-32 mx-4 btn btn-primary">로그인</button>
+          <button className="w-32 mr-4 btn btn-neutral">로그아웃</button>
         </div>
       </nav>
       <Drawer />
