@@ -8,7 +8,7 @@ const Header: FC = () => {
     <>
       <nav className="fixed top-0 left-0 shadow-lg navbar bg-base-100">
         <div className="navbar-start">
-          <label tabIndex={0} htmlFor="my-drawer" className="btn btn-ghost btn-circle">
+          <label tabIndex={0} htmlFor="drawer" className="btn btn-ghost btn-circle">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="w-5 h-5"
