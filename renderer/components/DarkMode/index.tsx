@@ -18,13 +18,15 @@ const DarkMode: FC = () => {
   }, [theme]);
 
   return (
-    <DarkModeSwitch
-      checked={isDarkMode}
-      onChange={changeTheme}
-      moonColor={Theme.MOON_COLOR}
-      sunColor={Theme.SUM_COLOR}
-      size={32}
-    />
+    <button className="btn btn-circle btn-ghost">
+      <DarkModeSwitch
+        checked={isDarkMode}
+        onChange={changeTheme}
+        moonColor={Theme.MOON_COLOR}
+        sunColor={Theme.SUM_COLOR}
+        size={32}
+      />
+    </button>
   );
 };
 export default DarkMode;
