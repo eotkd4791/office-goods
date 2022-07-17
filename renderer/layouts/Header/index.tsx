@@ -1,15 +1,25 @@
 import Link from 'next/link';
 import { FC } from 'react';
-import { BsPencilSquare as Pencil } from 'react-icons/bs';
 import DarkMode from 'renderer/components/DarkMode';
-import Drawer from '../Drawer';
+import useStore from 'renderer/store';
 
 const Header: FC = () => {
+  const toggleDrawer = useStore((state) => state.toggleDrawer);
+
+  const onClick = () => {
+    toggleDrawer();
+  };
+
   return (
     <>
       <nav className="fixed top-0 left-0 shadow-lg navbar bg-base-100">
         <div className="navbar-start">
-          <label tabIndex={0} htmlFor="drawer" className="btn btn-ghost btn-circle">
+          <label
+            tabIndex={0}
+            htmlFor="drawer"
+            className="btn btn-ghost btn-circle"
+            onClick={onClick}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="w-7 h-7"
@@ -33,10 +43,7 @@ const Header: FC = () => {
         </div>
         <div className="navbar-end">
           <DarkMode />
-          <button className="mx-4 btn btn-ghost btn-circle">
-            <Pencil className="w-7 h-7" />
-          </button>
-          <button className="mr-4 btn btn-ghost btn-circle">
+          <button className="btn btn-ghost btn-circle">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="w-7 h-7"
@@ -71,11 +78,10 @@ const Header: FC = () => {
               <span className="badge badge-xs badge-primary indicator-item" />
             </div>
           </button>
-          <button className="w-32 mx-4 btn btn-primary">로그인</button>
-          <button className="w-32 mr-4 btn btn-neutral">로그아웃</button>
+          {/* <button className="w-32 mx-4 btn btn-primary">로그인</button>
+          <button className="w-32 mr-4 btn btn-neutral">로그아웃</button> */}
         </div>
       </nav>
-      <Drawer />
     </>
   );
 };

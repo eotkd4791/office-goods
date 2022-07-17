@@ -6,7 +6,8 @@ import { ThemeProvider } from 'next-themes';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 import Header from 'renderer/layouts/Header';
-import { Theme } from 'renderer/types/ui';
+import Drawer from 'renderer/layouts/Drawer';
+import ButtonAddMemo from 'renderer/components/ButtonAddMemo';
 
 const queryClient = new QueryClient();
 
@@ -14,8 +15,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
-        <Header />
-        <Component {...pageProps} />
+        <Drawer>
+          <div className="w-full p-8 mt-[6rem]">
+            <Header />
+            <Component {...pageProps} />
+            <ButtonAddMemo />
+          </div>
+        </Drawer>
       </ThemeProvider>
     </QueryClientProvider>
   );
