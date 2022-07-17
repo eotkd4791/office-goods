@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@tailwind variants;
+
+@layer components {
+  .link-active {
+    @apply rounded-lg bg-primary !important;
+  }
+
+  .avatar img {
+    @apply object-contain !important;
+  }
+}
