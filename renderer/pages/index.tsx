@@ -1,12 +1,17 @@
-import Head from 'next/head';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import PageHead from 'renderer/components/PageHead';
 
 function Home() {
+  const { replace } = useRouter();
+
+  useEffect(() => {
+    replace('/hiring/post');
+  }, []);
+
   return (
     <>
-      <Head>
-        <title>Home | Office Goods</title>
-      </Head>
+      <PageHead title="Home" />
       <div className="w-full"></div>
     </>
   );
