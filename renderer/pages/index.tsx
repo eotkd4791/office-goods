@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import PageHead from 'renderer/components/PageHead';
+import PageHead from 'renderer/components/Common/PageHead';
 
 function Home() {
   const { replace } = useRouter();

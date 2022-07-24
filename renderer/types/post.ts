@@ -27,6 +27,12 @@ export interface HirePost {
   url: string;
   isActive: boolean;
   categories?: string[];
+  price: number;
+}
+
+export interface Category {
+  name: string;
+  picked: boolean;
 }
 
 export { Platform, platformNames };

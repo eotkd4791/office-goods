@@ -32,6 +32,7 @@ const Breadcrumbs: FC = () => {
     <div className="w-full font-medium text-md breadcrumbs mb-[2rem]">
       <ul>
         {breadcrumbs.map(({ key, url, title }) => {
+          console.log(url);
           return (
             <li key={key}>
               <Link href={url} passHref>

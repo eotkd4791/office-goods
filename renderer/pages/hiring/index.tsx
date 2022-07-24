@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
-import Breadcrumbs from 'renderer/components/Breadcrumbs';
-import PageHead from 'renderer/components/PageHead';
+import Breadcrumbs from 'renderer/components/Common/Breadcrumbs';
+import PageHead from 'renderer/components/Common/PageHead';
 import { Route, pathNames } from 'renderer/types/route';
 
 const Hiring: NextPage = () => {

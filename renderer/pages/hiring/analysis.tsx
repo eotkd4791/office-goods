@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
-import NotReady from 'renderer/components/NotReady';
-import PageHead from 'renderer/components/PageHead';
+import NotReady from 'renderer/components/Common/NotReady';
+import PageHead from 'renderer/components/Common/PageHead';
 import { Route, pathNames } from 'renderer/types/route';
 
 const HiringAnalysis: NextPage = () => {

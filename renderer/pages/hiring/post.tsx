@@ -2,9 +2,9 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 
-import Breadcrumbs from 'renderer/components/Breadcrumbs';
-import HiringPostTable from 'renderer/components/HiringTable';
-import PageHead from 'renderer/components/PageHead';
+import Breadcrumbs from 'renderer/components/Common/Breadcrumbs';
+import HiringPostTable from 'renderer/components/Post/HiringTable';
+import PageHead from 'renderer/components/Common/PageHead';
 import { Platform, platformNames } from 'renderer/types/post';
 
 const HiringPost: NextPage = () => {
@@ -97,10 +97,10 @@ const HiringPost: NextPage = () => {
                     </label>
                   </li>
                 </ul>
-                <button type="submit" className="btn btn-accent">
-                  검색
-                </button>
               </div>
+              <button type="submit" className="mr-2 btn btn-accent">
+                검색
+              </button>
               <button type="button" className="btn btn-priamry" onClick={goRegisterPost}>
                 채용공고 등록
               </button>

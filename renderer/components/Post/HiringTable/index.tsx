@@ -4,6 +4,7 @@ import { FC, useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 
 import { HirePost, Platform, platformNames } from 'renderer/types/post';
+import TableMetaInfo from '../TableMetaInfo';
 
 const HiringPostTable: FC = () => {
   const [posts, setPosts] = useState<HirePost[]>([]);
@@ -18,6 +19,7 @@ const HiringPostTable: FC = () => {
         from: dayjs(),
         to: dayjs(),
         isActive: true,
+        price: 10000,
       },
       {
         id: 2,
@@ -27,6 +29,7 @@ const HiringPostTable: FC = () => {
         from: dayjs(),
         to: dayjs(),
         isActive: false,
+        price: 100000,
       },
       {
         id: 3,
@@ -36,6 +39,7 @@ const HiringPostTable: FC = () => {
         from: dayjs(),
         to: dayjs(),
         isActive: true,
+        price: 60000,
       },
       {
         id: 4,
@@ -45,6 +49,7 @@ const HiringPostTable: FC = () => {
         from: dayjs(),
         to: dayjs(),
         isActive: false,
+        price: 50000,
       },
       {
         id: 5,
@@ -54,6 +59,7 @@ const HiringPostTable: FC = () => {
         from: dayjs(),
         to: dayjs(),
         isActive: true,
+        price: 150000,
       },
       {
         id: 6,
@@ -63,6 +69,7 @@ const HiringPostTable: FC = () => {
         from: dayjs(),
         to: dayjs(),
         isActive: true,
+        price: 10000,
       },
     ] as HirePost[]);
   }, []);
@@ -71,18 +78,11 @@ const HiringPostTable: FC = () => {
     <div className="w-full overflow-x-auto">
       <table className="table w-full">
         <thead>
-          <tr>
-            <th>플랫폼</th>
-            <th>공고명</th>
-            <th>등록 일시</th>
-            <th>종료 일시</th>
-            <th>공고</th>
-            <th>활성 여부</th>
-          </tr>
+          <TableMetaInfo />
         </thead>
         <tbody>
-          {posts.map(({ id, platform, title, categories, from, to, isActive }) => (
-            <tr className="hover:active" key={id}>
+          {posts.map(({ id, platform, title, categories, price, from, to, isActive }) => (
+            <tr className="cursor-pointer hover:active" key={id}>
               <td>
                 <div className="flex items-center space-x-3">
                   <div className="avatar">
@@ -116,6 +116,11 @@ const HiringPostTable: FC = () => {
                 </time>
               </td>
               <td>
+                <span className="hover:underline hover:underline-offset-4 hover:decoration-double">
+                  ₩ {price.toLocaleString()}
+                </span>
+              </td>
+              <td>
                 <Link href="https://www.naver.com">
                   <a target="_blank" className="link link-secondary">
                     공고 보기
@@ -133,14 +138,7 @@ const HiringPostTable: FC = () => {
           ))}
         </tbody>
         <tfoot>
-          <tr>
-            <th>플랫폼</th>
-            <th>공고명</th>
-            <th>등록 일시</th>
-            <th>종료 일시</th>
-            <th>공고</th>
-            <th>활성 여부</th>
-          </tr>
+          <TableMetaInfo />
         </tfoot>
       </table>
     </div>

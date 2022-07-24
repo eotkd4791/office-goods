@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { FC } from 'react';
-import DarkMode from 'renderer/components/DarkMode';
+import DarkMode from 'renderer/components/Common/DarkMode';
 import useStore from 'renderer/store';
 
 const Header: FC = () => {

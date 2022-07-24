@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 
 import Header from 'renderer/layouts/Header';
 import Drawer from 'renderer/layouts/Drawer';
-import ButtonAddMemo from 'renderer/components/ButtonAddMemo';
+import ButtonAddMemo from 'renderer/components/QuickMemo/ButtonAddMemo';
 
 const queryClient = new QueryClient();
 
