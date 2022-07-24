@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, ReactNode } from 'react';
 import { Route, pathNames, paths } from 'renderer/types/route';
-import useStore from 'renderer/store';
+import useUIStore from 'renderer/store/ui';
 
 interface Menu {
   title: string;
@@ -34,7 +34,7 @@ interface Props {
 
 const Drawer: FC<Props> = ({ children }) => {
   const { pathname } = useRouter();
-  const { visibleDrawer, closeAll } = useStore((state) => ({
+  const { visibleDrawer, closeAll } = useUIStore((state) => ({
     visibleDrawer: state.visible.drawer,
     closeAll: state.toggleDrawer,
   }));

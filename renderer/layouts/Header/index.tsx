@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import { FC } from 'react';
 import DarkMode from 'renderer/components/Common/DarkMode';
-import useStore from 'renderer/store';
+import useUIStore from 'renderer/store/ui';
 
 const Header: FC = () => {
-  const toggleDrawer = useStore((state) => state.toggleDrawer);
+  const toggleDrawer = useUIStore((state) => state.toggleDrawer);
 
   const onClick = () => {
     toggleDrawer();

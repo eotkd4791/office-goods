@@ -1,12 +1,15 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { MouseEventHandler, useEffect, useState } from 'react';
+import { MouseEventHandler, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import dayjs from 'dayjs';
 import Breadcrumbs from 'renderer/components/Common/Breadcrumbs';
 import PageHead from 'renderer/components/Common/PageHead';
 import { HirePost, Platform, platformNames, Category } from 'renderer/types/post';
+import { postSchema } from 'renderer/schemas/post';
+import usePostStore from 'renderer/store/post';
 
-// 상태관리
 const categories: Category[] = [
   {
     name: '의사',
@@ -28,13 +31,24 @@ const categories: Category[] = [
 
 const HiringRegister: NextPage = () => {
   const { back } = useRouter();
-  const { handleSubmit, register, getValues } = useForm<Omit<HirePost, 'id'>>({ mode: 'onBlur' });
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { createPost } = usePostStore();
+  const { handleSubmit, register } = useForm<Omit<HirePost, 'id'>>({
+    mode: 'onBlur',
+    resolver: yupResolver(postSchema),
+  });
 
   const onSubmit = handleSubmit((post) => {
-    console.log(post);
+    createPost({ ...post, isActive: checkIfActive(post.from, post.to) });
     back();
   });
+
+  const checkIfActive = (from: string | dayjs.Dayjs, to: string | dayjs.Dayjs) => {
+    const current = dayjs();
+    const start = dayjs(from).format('YYYY-MM-DD');
+    const end = dayjs(to).format('YYYY-MM-DD');
+    return current.isSameOrAfter(start) && current.isSameOrBefore(end);
+  };
 
   const toggleCategoryMenu: MouseEventHandler<HTMLButtonElement> = () => {
     setIsOpen(!isOpen);
@@ -51,8 +65,13 @@ const HiringRegister: NextPage = () => {
             <label htmlFor="platform" className="mb-2 card-title">
               채용 플랫폼
             </label>
-            <select className="w-full select outline" id="platform" {...register('platform')}>
-              <option value="*" selected disabled>
+            <select
+              className="w-full select outline"
+              id="platform"
+              defaultValue="*"
+              {...register('platform')}
+            >
+              <option value="*" disabled>
                 채용 플랫폼 선택
               </option>
               <option value={Platform.SARAMIN}>{platformNames[Platform.SARAMIN]}</option>

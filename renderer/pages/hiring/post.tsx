@@ -1,20 +1,43 @@
 import { NextPage } from 'next';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import Breadcrumbs from 'renderer/components/Common/Breadcrumbs';
-import HiringPostTable from 'renderer/components/Post/HiringTable';
+import HiringPostTable from 'renderer/components/Hiring/HiringTable';
 import PageHead from 'renderer/components/Common/PageHead';
-import { Platform, platformNames } from 'renderer/types/post';
+import { employeeTypeNames, HirePost, OrderValues } from 'renderer/types/post';
+import usePostStore from 'renderer/store/post';
+import usePersistStore from 'renderer/hooks/usePersistStore';
+import OrderPosts from 'renderer/components/Hiring/OrderPosts';
+import EmptyPost from 'renderer/components/Hiring/EmptyPost';
 
 const HiringPost: NextPage = () => {
-  const { push } = useRouter();
-  const { handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm<OrderValues>();
 
-  const onSubmit = handleSubmit(() => {});
+  const { posts, setPosts } = usePostStore();
+  const [orderedPosts, setOrderedPosts] = useState<HirePost[]>(posts);
 
-  const goRegisterPost = () => push('/hiring/register');
+  usePersistStore<HirePost[]>({ key: 'post.posts', setter: setPosts });
 
+  const activeSort = () => [...posts].sort((a) => (a.isActive ? -1 : 1));
+
+  const orderPosts = handleSubmit(({ orderPriority, platform, ...employeeTypes }) => {
+    setOrderedPosts(
+      [...posts].filter((post) =>
+        Object.keys(employeeTypes).some(
+          (type) =>
+            employeeTypes[type] &&
+            post.categories &&
+            post.categories.includes(employeeTypeNames[type])
+        )
+      )
+    );
+  });
+
+  useEffect(() => {
+    setOrderedPosts(activeSort());
+  }, [posts]);
   return (
     <>
       <PageHead title="채용공고 관리" />
@@ -22,93 +45,15 @@ const HiringPost: NextPage = () => {
         <header className="flex flex-col mb-8">
           <Breadcrumbs />
           <div className="divider" />
-          <div className="justify-center form-control">
-            <form className="flex w-full h-full mb-4" onSubmit={onSubmit}>
-              <div className="h-full mr-4 input-group">
-                <select className="h-full select select-bordered" defaultValue="*">
-                  <option disabled value="*">
-                    플랫폼
-                  </option>
-                  <option value={Platform.SARAMIN}>{platformNames[Platform.SARAMIN]}</option>
-                  <option value={Platform.JOBKOREA}>{platformNames[Platform.JOBKOREA]}</option>
-                  <option value={Platform.MEDIGATE}>{platformNames[Platform.MEDIGATE]}</option>
-                  <option value={Platform.MEDIJOB}>{platformNames[Platform.MEDIJOB]}</option>
-                  <option value={Platform.NURSCAPE}>{platformNames[Platform.NURSCAPE]}</option>
-                  <option value={Platform.NURSEJOB}>{platformNames[Platform.NURSEJOB]}</option>
-                </select>
-                <select className="select select-bordered" defaultValue="title_asc">
-                  <option disabled value="title_asc">
-                    정렬순서
-                  </option>
-                  <option value="title">가나다순</option>
-                  <option value="active">활성공고</option>
-                  <option value="from">시작일시</option>
-                  <option value="to">종료일시</option>
-                </select>
-              </div>
-              <div className="w-[50rem] flex mr-8">
-                <ul className="flex w-full">
-                  <li className="flex items-center w-full">
-                    <input
-                      type="checkbox"
-                      defaultChecked={true}
-                      id="1"
-                      name="doctor"
-                      className="checkbox checkbox-accent"
-                    />
-                    <label htmlFor="1" className="ml-4">
-                      의사
-                    </label>
-                  </li>
-                  <li className="flex items-center w-full">
-                    <input
-                      type="checkbox"
-                      defaultChecked={true}
-                      id="2"
-                      name="nurse"
-                      className="checkbox checkbox-accent"
-                    />
-                    <label htmlFor="2" className="ml-4">
-                      간호사
-                    </label>
-                  </li>
-                  <li className="flex items-center w-full">
-                    <input
-                      type="checkbox"
-                      defaultChecked={true}
-                      id="3"
-                      name="office"
-                      className="checkbox checkbox-accent"
-                    />
-                    <label htmlFor="3" className="ml-4">
-                      행정직
-                    </label>
-                  </li>
-                  <li className="flex items-center w-full">
-                    <input
-                      type="checkbox"
-                      defaultChecked={true}
-                      id="4"
-                      name="temporary"
-                      className="checkbox checkbox-accent"
-                    />
-                    <label htmlFor="4" className="ml-4">
-                      계약직
-                    </label>
-                  </li>
-                </ul>
-              </div>
-              <button type="submit" className="mr-2 btn btn-accent">
-                검색
-              </button>
-              <button type="button" className="btn btn-priamry" onClick={goRegisterPost}>
-                채용공고 등록
-              </button>
-            </form>
+          <div className="flex-row justify-center form-control">
+            <OrderPosts onSubmit={orderPosts} register={register} />
+            <Link href="/hiring/register" passHref>
+              <button className="btn btn-priamry">채용공고 등록</button>
+            </Link>
           </div>
         </header>
         <article>
-          <HiringPostTable />
+          {orderedPosts.length > 0 ? <HiringPostTable posts={orderedPosts} /> : <EmptyPost />}
         </article>
       </div>
     </>

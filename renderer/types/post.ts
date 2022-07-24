@@ -1,6 +1,6 @@
-import dayjs from 'dayjs';
+import * as dayjs from 'dayjs';
 
-const enum Platform {
+export const enum Platform {
   SARAMIN = 'saramin',
   JOBKOREA = 'jobkorea',
   MEDIGATE = 'medigate',
@@ -9,13 +9,20 @@ const enum Platform {
   NURSEJOB = 'nursejob',
 }
 
-const platformNames = {
+export const platformNames = {
   saramin: '사람인',
   jobkorea: '잡코리아',
   medigate: '메디게이트',
   medijob: '메디잡',
   nurscape: '너스케입',
   nursejob: '널스잡',
+} as const;
+
+export const employeeTypeNames = {
+  doctor: '의사',
+  nurse: '간호사',
+  office: '행정직',
+  temporary: '계약직',
 } as const;
 
 export interface HirePost {
@@ -35,4 +42,18 @@ export interface Category {
   picked: boolean;
 }
 
-export { Platform, platformNames };
+export interface OrderValues {
+  platform:
+    | Platform.SARAMIN
+    | Platform.JOBKOREA
+    | Platform.MEDIGATE
+    | Platform.MEDIJOB
+    | Platform.NURSCAPE
+    | Platform.NURSEJOB;
+
+  orderPriority: 'title' | 'active' | 'from_asc' | 'from_desc' | 'to_asc' | 'to_desc';
+  doctor: boolean;
+  nurse: boolean;
+  office: boolean;
+  temporary: boolean;
+}

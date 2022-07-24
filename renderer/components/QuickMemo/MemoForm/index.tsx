@@ -1,7 +1,7 @@
 import { FC, MouseEventHandler } from 'react';
 import { useForm } from 'react-hook-form';
 
-import useStore from 'renderer/store';
+import useUIStore from 'renderer/store/ui';
 
 interface Props {
   onClick: MouseEventHandler<HTMLButtonElement>;
@@ -9,7 +9,7 @@ interface Props {
 }
 
 const MemoForm: FC<Props> = ({ onClick, toggleMemo }) => {
-  const closeAll = useStore((state) => state.closeAll);
+  const closeAll = useUIStore((state) => state.closeAll);
 
   const { handleSubmit } = useForm();
 

@@ -1,37 +1,39 @@
 import create from 'zustand';
-import produce from 'immer';
+import { persistProduce } from 'renderer/utils/storeUtils';
 
 interface VisibilityUI {
   drawer: boolean;
   memo: boolean;
 }
-export interface UI {
+export interface UIState {
   visible: VisibilityUI;
   toggleDrawer: () => void;
   toggleMemo: () => void;
   closeAll: () => void;
 }
 
-const useStore = create<UI>((set) => ({
+const uiPersistProduce = persistProduce('ui');
+
+const useUIStore = create<UIState>((set) => ({
   visible: {
     drawer: false,
     memo: false,
   },
   toggleDrawer: () =>
     set(
-      produce((state) => {
+      uiPersistProduce((state) => {
         state.visible.drawer = !state.visible.drawer;
       })
     ),
   toggleMemo: () =>
     set(
-      produce((state) => {
+      uiPersistProduce((state) => {
         state.visible.memo = !state.visible.memo;
       })
     ),
   closeAll: () =>
     set(
-      produce((state) => {
+      uiPersistProduce((state) => {
         for (const key in state.visible) {
           state.visible[key] = false;
         }
@@ -39,4 +41,4 @@ const useStore = create<UI>((set) => ({
     ),
 }));
 
-export default useStore;
+export default useUIStore;

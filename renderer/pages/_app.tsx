@@ -1,4 +1,5 @@
 import '../styles/globals.css';
+import 'renderer/utils/dayjs';
 
 import type { AppProps } from 'next/app';
 import { ThemeProvider } from 'next-themes';

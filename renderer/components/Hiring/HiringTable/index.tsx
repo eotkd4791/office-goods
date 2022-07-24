@@ -1,79 +1,16 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import dayjs from 'dayjs';
 
-import { HirePost, Platform, platformNames } from 'renderer/types/post';
+import { HirePost, platformNames } from 'renderer/types/post';
 import TableMetaInfo from '../TableMetaInfo';
 
-const HiringPostTable: FC = () => {
-  const [posts, setPosts] = useState<HirePost[]>([]);
+interface Props {
+  posts: HirePost[];
+}
 
-  useEffect(() => {
-    setPosts([
-      {
-        id: 1,
-        platform: Platform.JOBKOREA,
-        title: '소아과 전문의 채용 공고',
-        categories: ['의사', '소아과'],
-        from: dayjs(),
-        to: dayjs(),
-        isActive: true,
-        price: 10000,
-      },
-      {
-        id: 2,
-        platform: Platform.SARAMIN,
-        title: '산부인과 전문의 채용 공고',
-        categories: ['의사', '산부인과'],
-        from: dayjs(),
-        to: dayjs(),
-        isActive: false,
-        price: 100000,
-      },
-      {
-        id: 3,
-        platform: Platform.MEDIGATE,
-        title: '소아과 간호사 채용 공고',
-        categories: ['간호사', '소아과'],
-        from: dayjs(),
-        to: dayjs(),
-        isActive: true,
-        price: 60000,
-      },
-      {
-        id: 4,
-        platform: Platform.MEDIJOB,
-        title: '치과 전문의 채용 공고',
-        categories: ['의사', '치과'],
-        from: dayjs(),
-        to: dayjs(),
-        isActive: false,
-        price: 50000,
-      },
-      {
-        id: 5,
-        platform: Platform.NURSCAPE,
-        title: '중환자실 간호사 채용 공고',
-        categories: ['간호사', '중환자실'],
-        from: dayjs(),
-        to: dayjs(),
-        isActive: true,
-        price: 150000,
-      },
-      {
-        id: 6,
-        platform: Platform.NURSEJOB,
-        title: '간호조무사 채용 공고',
-        categories: ['간호조무사', '계약직'],
-        from: dayjs(),
-        to: dayjs(),
-        isActive: true,
-        price: 10000,
-      },
-    ] as HirePost[]);
-  }, []);
-
+const HiringPostTable: FC<Props> = ({ posts }) => {
   return (
     <div className="w-full overflow-x-auto">
       <table className="table w-full">
@@ -106,13 +43,13 @@ const HiringPostTable: FC = () => {
                   ))}
               </td>
               <td>
-                <time dateTime={from.format('YYYY년 MM월 DD일 HH시 mm분')}>
-                  {from.format('YYYY년 MM월 DD일 HH시 mm분')}
+                <time dateTime={dayjs(from).format('YYYY년 MM월 DD일 HH시 mm분')}>
+                  {dayjs(from).format('YYYY년 MM월 DD일 HH시 mm분')}
                 </time>
               </td>
               <td>
-                <time dateTime={to.format('YYYY년 MM월 DD일 HH시 mm분')}>
-                  {to.format('YYYY년 MM월 DD일 HH시 mm분')}
+                <time dateTime={dayjs(to).format('YYYY년 MM월 DD일 HH시 mm분')}>
+                  {dayjs(to).format('YYYY년 MM월 DD일 HH시 mm분')}
                 </time>
               </td>
               <td>
