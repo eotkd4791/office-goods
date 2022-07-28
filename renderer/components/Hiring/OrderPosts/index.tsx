@@ -13,28 +13,27 @@ const OrderPosts: FC<Props> = ({ onSubmit, register }) => {
       <div className="h-full mr-4 input-group">
         <select
           className="h-full select select-bordered"
-          defaultValue="*"
+          defaultValue={Platform.ALL}
           {...register('platform')}
         >
-          <option disabled value="*">
-            플랫폼
-          </option>
+          <option disabled>플랫폼</option>
+          <option value={Platform.ALL}>{platformNames[Platform.ALL]}</option>
           <option value={Platform.SARAMIN}>{platformNames[Platform.SARAMIN]}</option>
           <option value={Platform.JOBKOREA}>{platformNames[Platform.JOBKOREA]}</option>
           <option value={Platform.MEDIGATE}>{platformNames[Platform.MEDIGATE]}</option>
           <option value={Platform.MEDIJOB}>{platformNames[Platform.MEDIJOB]}</option>
           <option value={Platform.NURSCAPE}>{platformNames[Platform.NURSCAPE]}</option>
           <option value={Platform.NURSEJOB}>{platformNames[Platform.NURSEJOB]}</option>
+          <option value={Platform.BRIC}>{platformNames[Platform.BRIC]}</option>
         </select>
         <select
           className="select select-bordered"
-          defaultValue="title"
+          defaultValue="active"
           {...register('orderPriority')}
         >
-          <option disabled value="title">
+          <option disabled value="active">
             정렬순서
           </option>
-          <option value="title">가나다순</option>
           <option value="active">활성공고</option>
           <option value="from_asc">시작일시 빠른순</option>
           <option value="from_desc">시작일시 느린순</option>

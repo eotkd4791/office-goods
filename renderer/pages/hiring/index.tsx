@@ -7,7 +7,7 @@ import { Route, pathNames } from 'renderer/types/route';
 const Hiring: NextPage = () => {
   return (
     <>
-      <PageHead title={pathNames[Route.HOME]} />
+      <PageHead title={pathNames[Route.HIRING] + ' 홈'} />
       <div>
         <header className="w-full">
           <Breadcrumbs />

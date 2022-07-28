@@ -80,6 +80,7 @@ const HiringRegister: NextPage = () => {
               <option value={Platform.MEDIJOB}>{platformNames[Platform.MEDIJOB]}</option>
               <option value={Platform.NURSCAPE}>{platformNames[Platform.NURSCAPE]}</option>
               <option value={Platform.NURSEJOB}>{platformNames[Platform.NURSEJOB]}</option>
+              <option value={Platform.BRIC}>{platformNames[Platform.BRIC]}</option>
             </select>
           </div>
           <div className="mb-8">

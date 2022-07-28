@@ -13,16 +13,21 @@ interface Menu {
 const menuList: Menu[] = [
   {
     key: 1,
+    title: pathNames[Route.HIRING],
+    url: paths[Route.HIRING],
+  },
+  {
+    key: 2,
     title: pathNames[Route.POST],
     url: paths[Route.POST],
   },
   {
-    key: 2,
+    key: 3,
     title: pathNames[Route.STATUS],
     url: paths[Route.STATUS],
   },
   {
-    key: 3,
+    key: 4,
     title: pathNames[Route.ANALYSIS],
     url: paths[Route.ANALYSIS],
   },

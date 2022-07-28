@@ -1,21 +1,25 @@
 import * as dayjs from 'dayjs';
 
 export const enum Platform {
+  ALL = '*',
   SARAMIN = 'saramin',
   JOBKOREA = 'jobkorea',
   MEDIGATE = 'medigate',
   MEDIJOB = 'medijob',
   NURSCAPE = 'nurscape',
   NURSEJOB = 'nursejob',
+  BRIC = 'bric',
 }
 
 export const platformNames = {
+  '*': '전체',
   saramin: '사람인',
   jobkorea: '잡코리아',
   medigate: '메디게이트',
   medijob: '메디잡',
   nurscape: '너스케입',
   nursejob: '널스잡',
+  bric: '브릭',
 } as const;
 
 export const employeeTypeNames = {
@@ -42,16 +46,27 @@ export interface Category {
   picked: boolean;
 }
 
+export type OrderPriority =
+  | 'active'
+  | 'inactive'
+  | 'from_asc'
+  | 'from_desc'
+  | 'to_asc'
+  | 'to_desc'
+  | 'price_asc'
+  | 'price_desc';
 export interface OrderValues {
   platform:
+    | Platform.ALL
     | Platform.SARAMIN
     | Platform.JOBKOREA
     | Platform.MEDIGATE
     | Platform.MEDIJOB
     | Platform.NURSCAPE
-    | Platform.NURSEJOB;
+    | Platform.NURSEJOB
+    | Platform.BRIC;
 
-  orderPriority: 'title' | 'active' | 'from_asc' | 'from_desc' | 'to_asc' | 'to_desc';
+  orderPriority: OrderPriority;
   doctor: boolean;
   nurse: boolean;
   office: boolean;
