@@ -25,24 +25,24 @@ const HiringPost: NextPage = () => {
   const { register, handleSubmit } = useForm<OrderValues>();
 
   const { posts, setPosts } = usePostStore();
-  const [orderedPosts, setOrderedPosts] = useState<HirePost[]>(posts);
+  const [orderedPosts, setOrderedPosts] = useState<HirePost[]>(posts || ([] as HirePost[]));
 
   usePersistStore<HirePost[]>({ key: 'post.posts', setter: setPosts });
 
-  const sortActiveFirst = (posts: HirePost[]) =>
+  const sortActiveFirst = (posts: HirePost[] = []) =>
     [...posts].sort(({ isActive }) => (isActive ? -1 : 1));
-  const sortInctiveFirst = (posts: HirePost[]) =>
+  const sortInctiveFirst = (posts: HirePost[] = []) =>
     [...posts].sort(({ isActive }) => (!isActive ? -1 : 1));
-  const sortFromASC = (posts: HirePost[]) =>
+  const sortFromASC = (posts: HirePost[] = []) =>
     [...posts].sort((a, b) => (dayjs(a.from).isBefore(dayjs(b.from)) ? -1 : 1));
-  const sortFromDESC = (posts: HirePost[]) =>
+  const sortFromDESC = (posts: HirePost[] = []) =>
     [...posts].sort((a, b) => (dayjs(a.from).isAfter(dayjs(b.from)) ? -1 : 1));
-  const sortToASC = (posts: HirePost[]) =>
+  const sortToASC = (posts: HirePost[] = []) =>
     [...posts].sort((a, b) => (dayjs(a.to).isBefore(dayjs(b.to)) ? 1 : -1));
-  const sortToDESC = (posts: HirePost[]) =>
+  const sortToDESC = (posts: HirePost[] = []) =>
     [...posts].sort((a, b) => (dayjs(a.to).isAfter(dayjs(b.to)) ? -1 : 1));
-  const sortPriceASC = (posts: HirePost[]) => [...posts].sort((a, b) => a.price - b.price);
-  const sortPriceDESC = (posts: HirePost[]) => [...posts].sort((a, b) => b.price - a.price);
+  const sortPriceASC = (posts: HirePost[] = []) => [...posts].sort((a, b) => a.price - b.price);
+  const sortPriceDESC = (posts: HirePost[] = []) => [...posts].sort((a, b) => b.price - a.price);
 
   const orderPosts = handleSubmit(({ orderPriority, platform, ...employeeTypes }) => {
     const postsFilteredByEmployeeType = [...posts].filter((post) =>
