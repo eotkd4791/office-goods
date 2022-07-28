@@ -46,7 +46,7 @@
     "@types/uuid": "^8.3.4",
     "autoprefixer": "^10.4.7",
     "electron": "^18.2.0",
-    "electron-builder": "^23.0.3",
+    "electron-builder": "21",
     "electron-serve": "^1.1.0",
     "eslint": "^8.19.0",
     "eslint-config-prettier": "^8.5.0",
