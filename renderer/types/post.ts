@@ -30,7 +30,7 @@ export const employeeTypeNames = {
 } as const;
 
 export interface HirePost {
-  id: number;
+  id: string;
   platform: keyof typeof platformNames;
   title: string;
   from: dayjs.Dayjs;

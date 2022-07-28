@@ -19,6 +19,8 @@ import OrderPosts from 'renderer/components/Hiring/OrderPosts';
 import EmptyPost from 'renderer/components/Hiring/EmptyPost';
 import dayjs from 'dayjs';
 
+type EmployeeTypes = 'doctor' | 'nurse' | 'office' | 'temporary';
+
 const HiringPost: NextPage = () => {
   const { register, handleSubmit } = useForm<OrderValues>();
 
@@ -44,14 +46,14 @@ const HiringPost: NextPage = () => {
 
   const orderPosts = handleSubmit(({ orderPriority, platform, ...employeeTypes }) => {
     const postsFilteredByEmployeeType = [...posts].filter((post) =>
-      Object.keys(employeeTypes).some(
+      (Object.keys(employeeTypes) as EmployeeTypes[]).some(
         (type) =>
           employeeTypes[type] &&
           post.categories &&
           post.categories.includes(employeeTypeNames[type]) &&
           (platform === post.platform || platform === Platform.ALL)
       )
-    );
+    ) as HirePost[];
 
     setOrderedPosts(sortByOrderPriority(orderPriority, postsFilteredByEmployeeType));
   });

@@ -17,8 +17,7 @@ const Breadcrumbs: FC = () => {
 
   useEffect(() => {
     setBreadcrumbs(
-      asPath
-        .split('/')
+      (asPath.split('/') as (keyof typeof paths)[])
         .filter((path) => path.length > 0)
         .map((path, index) => ({
           key: index + 1,

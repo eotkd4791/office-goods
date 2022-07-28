@@ -22,20 +22,26 @@ const useUIStore = create<UIState>((set) => ({
   toggleDrawer: () =>
     set(
       uiPersistProduce((state) => {
-        state.visible.drawer = !state.visible.drawer;
+        if (state.visible) {
+          state.visible.drawer = !state.visible.drawer;
+        }
       })
     ),
   toggleMemo: () =>
     set(
       uiPersistProduce((state) => {
-        state.visible.memo = !state.visible.memo;
+        if (state.visible) {
+          state.visible.memo = !state.visible.memo;
+        }
       })
     ),
   closeAll: () =>
     set(
       uiPersistProduce((state) => {
-        for (const key in state.visible) {
-          state.visible[key] = false;
+        if (state.visible) {
+          for (const key in state.visible) {
+            state.visible[<keyof VisibilityUI>key] = false;
+          }
         }
       })
     ),
