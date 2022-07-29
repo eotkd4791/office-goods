@@ -24,7 +24,10 @@ const usePostStore = create<PostState>((set) => ({
   createPost: (post) =>
     set(
       persistPostProduce((state) => {
-        state.posts?.push({
+        if (!state.posts) {
+          state.posts = [];
+        }
+        state.posts.push({
           ...post,
           id: uuidv4(),
         } as HirePost);
