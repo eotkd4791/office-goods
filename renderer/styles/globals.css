@@ -17,15 +17,6 @@
   font-weight: 500;
 }
 
-@layer base {
-  html {
-    font-family: sehwa, dadd, 'sans-serif';
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 4px;
-  }
-}
-
 @layer components {
   .link-active {
     @apply rounded-lg bg-primary !important;
