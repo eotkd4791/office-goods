@@ -43,13 +43,13 @@ const HiringPostTable: FC<Props> = ({ posts }) => {
                   ))}
               </td>
               <td>
-                <time dateTime={dayjs(from).format('YYYY년 MM월 DD일 HH시 mm분')}>
-                  {dayjs(from).format('YYYY년 MM월 DD일 HH시 mm분')}
+                <time dateTime={dayjs(from).format('YYYY년 MM월 DD일')}>
+                  {dayjs(from).format('YYYY년 MM월 DD일')}
                 </time>
               </td>
               <td>
-                <time dateTime={dayjs(to).format('YYYY년 MM월 DD일 HH시 mm분')}>
-                  {dayjs(to).format('YYYY년 MM월 DD일 HH시 mm분')}
+                <time dateTime={dayjs(to).format('YYYY년 MM월 DD일')}>
+                  {dayjs(to).format('YYYY년 MM월 DD일')}
                 </time>
               </td>
               <td>
