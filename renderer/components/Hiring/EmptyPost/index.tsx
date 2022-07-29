@@ -14,7 +14,7 @@ const EmptyPost: FC = () => {
           <p className="py-6 underline">
             존재하는 채용공고가 없습니다. 채용공고를 등록하려면 아래 버튼을 눌러주세요.
           </p>
-          <button className="btn btn-primary" onClick={() => push('/hiring/register')}>
+          <button className="w-full btn btn-primary" onClick={() => push('/hiring/register')}>
             채용공고 등록하기
           </button>
         </div>
