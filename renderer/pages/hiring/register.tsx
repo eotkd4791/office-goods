@@ -1,47 +1,42 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { MouseEventHandler, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import dayjs from 'dayjs';
 import Breadcrumbs from 'renderer/components/Common/Breadcrumbs';
 import PageHead from 'renderer/components/Common/PageHead';
-import { HirePost, Platform, platformNames, Category } from 'renderer/types/post';
+import { HirePost, Platform, platformNames } from 'renderer/types/post';
 import { postSchema } from 'renderer/schemas/post';
 import usePostStore from 'renderer/store/post';
+import useUIStore from 'renderer/store/ui';
+import { contracts, fields } from 'renderer/fixtures/register';
 
-const categories: Category[] = [
-  {
-    name: '의사',
-    picked: false,
-  },
-  {
-    name: '간호사',
-    picked: false,
-  },
-  {
-    name: '행정직',
-    picked: false,
-  },
-  {
-    name: '계약직',
-    picked: false,
-  },
-];
+type FormValues = Omit<HirePost, 'id'>;
 
 const HiringRegister: NextPage = () => {
   const { back } = useRouter();
-  const [isOpen, setIsOpen] = useState<boolean>(false);
   const { createPost } = usePostStore();
-  const { handleSubmit, register } = useForm<Omit<HirePost, 'id'>>({
+  const { toggleAlert, setAlert } = useUIStore();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<FormValues>({
     mode: 'onBlur',
     resolver: yupResolver(postSchema),
   });
 
-  const onSubmit = handleSubmit((post) => {
-    createPost({ ...post, isActive: checkIfActive(post.from, post.to) });
+  const onSubmit = (post: FormValues) => {
+    createPost({ ...post, isActive: checkIfActive(post.from, post.to), countOfApplicants: 0 });
     back();
-  });
+    setAlert('success', '채용공고 등록 성공');
+    toggleAlert();
+  };
+
+  const onError = (errors: Object) => {
+    setAlert('error', '채용공고 등록 실패');
+    toggleAlert();
+  };
 
   const checkIfActive = (from: string | dayjs.Dayjs, to: string | dayjs.Dayjs) => {
     const current = dayjs();
@@ -50,17 +45,16 @@ const HiringRegister: NextPage = () => {
     return current.isSameOrAfter(start) && current.isSameOrBefore(end);
   };
 
-  const toggleCategoryMenu: MouseEventHandler<HTMLButtonElement> = () => {
-    setIsOpen(!isOpen);
-  };
-
   return (
     <>
       <PageHead title="채용공고 등록" />
       <Breadcrumbs />
       <div className="divider" />
       <div className="overflow-visible shadow-xl card">
-        <form onSubmit={onSubmit} className="grid grid-cols-2 gap-5 card-body">
+        <form
+          onSubmit={handleSubmit(onSubmit, onError)}
+          className="grid grid-cols-2 gap-5 card-body"
+        >
           <div className="mb-8">
             <label htmlFor="platform" className="mb-2 card-title">
               채용 플랫폼
@@ -82,6 +76,7 @@ const HiringRegister: NextPage = () => {
               <option value={Platform.NURSEJOB}>{platformNames[Platform.NURSEJOB]}</option>
               <option value={Platform.BRIC}>{platformNames[Platform.BRIC]}</option>
             </select>
+            {errors.platform && <span className="text-error">{errors.platform.message}</span>}
           </div>
           <div className="mb-8">
             <label className="mb-2 card-title" htmlFor="title">
@@ -94,6 +89,7 @@ const HiringRegister: NextPage = () => {
               placeholder="제목"
               {...register('title')}
             />
+            {errors.title && <span className="text-error">{errors.title.message}</span>}
           </div>
           <div className="mb-8">
             <label className="mb-2 card-title" htmlFor="url">
@@ -105,6 +101,7 @@ const HiringRegister: NextPage = () => {
               placeholder="URL"
               {...register('url')}
             />
+            {errors.url && <span className="text-error">{errors.url.message}</span>}
           </div>
           <div className="mb-8">
             <label className="mb-2 card-title" htmlFor="title">
@@ -117,63 +114,91 @@ const HiringRegister: NextPage = () => {
               placeholder="등록비"
               {...register('price')}
             />
+            {errors.price && <span className="text-error">{errors.price.message}</span>}
           </div>
           <div className="mb-8">
             <label className="mb-2 card-title" htmlFor="from">
               등록 일시
             </label>
-            <input type="datetime-local" className="w-full input outline" {...register('from')} />
+            <input type="date" className="w-full input outline" {...register('from')} />
+            {errors.from && <span className="text-error">{errors.from.message}</span>}
           </div>
           <div className="mb-8">
             <label className="mb-2 card-title" htmlFor="to">
               종료 일시
             </label>
-            <input className="w-full outline input" type="datetime-local" {...register('to')} />
+            <input className="w-full outline input" type="date" {...register('to')} />
+            {errors.to && <span className="text-error">{errors.to.message}</span>}
           </div>
-          <div className="relative z-50 mb-8">
-            <label className="mb-2 card-title" htmlFor="categories">
-              카테고리
+          <fieldset>
+            <legend className="mb-2 card-title">직군</legend>
+            <ul className="flex flex-row justify-between w-full p-2 rounded-lg outline bg-base-100 top-35">
+              {fields.map(({ key, name, value }) => (
+                <li key={key} className="flex flex-row items-center w-[20%]">
+                  <input
+                    type="radio"
+                    id={name}
+                    className="mr-2 radio radio-secondary"
+                    value={value}
+                    {...register('field')}
+                  />
+                  <label htmlFor={name}>{name}</label>
+                </li>
+              ))}
+            </ul>
+            {errors.field && <span className="text-error">{errors.field.message}</span>}
+          </fieldset>
+          <fieldset>
+            <legend className="mb-2 card-title">고용형태</legend>
+            <ul className="flex flex-row justify-between w-full p-2 rounded-lg outline bg-base-100 top-35">
+              {contracts.map(({ key, name, value }) => (
+                <li key={key} className="flex flex-row items-center w-[20%]">
+                  <input
+                    type="radio"
+                    id={name}
+                    className="mr-2 radio radio-secondary"
+                    value={value}
+                    {...register('contract')}
+                  />
+                  <label htmlFor={name}>{name}</label>
+                </li>
+              ))}
+            </ul>
+            {errors.contract && <span className="text-error">{errors.contract.message}</span>}
+          </fieldset>
+          <div>
+            <label htmlFor="department" className="mb-2 card-title">
+              부서
             </label>
-            <button
-              type="button"
-              className="w-full outline btn btn-ghost"
-              id="categories"
-              onClick={toggleCategoryMenu}
-            >
-              카테고리 {isOpen ? '닫기' : '열기'}
-            </button>
-            {isOpen && (
-              <ul className="absolute z-50 w-full py-2 rounded-lg outline menu bg-base-100 top-35">
-                {categories.map(({ name, picked }, index) => {
-                  return (
-                    <li
-                      key={index}
-                      className={'flex flex-row items-center justify-between px-2'.concat(
-                        picked ? 'bordered' : ''
-                      )}
-                    >
-                      <label className="w-full cursor-pointer label">
-                        <span className="label-text">{name}</span>
-                        <input
-                          type="checkbox"
-                          className="toggle toggle-secondary"
-                          value={name}
-                          {...register('categories')}
-                        />
-                      </label>
-                    </li>
-                  );
-                })}
-              </ul>
-            )}
+            <input
+              type="text"
+              id="department"
+              className="w-full input outline h-[40px]"
+              placeholder="부서"
+              {...register('department')}
+            />
+            {errors.department && <span className="text-error">{errors.department.message}</span>}
           </div>
-          <div className="flex items-center justify-between w-full card-action">
-            <button type="submit" className="w-[48%] btn btn-primary">
+          <div>
+            <label htmlFor="type" className="mb-2 card-title">
+              직종
+            </label>
+            <input
+              type="text"
+              id="type"
+              className="w-full input outline h-[40px]"
+              placeholder="직종"
+              {...register('type')}
+            />
+            {errors.type && <span className="text-error">{errors.type.message}</span>}
+          </div>
+          <div className="flex items-center justify-between card-action mt-[20px]">
+            <button type="submit" className="w-full mr-5 btn btn-primary">
               등록
             </button>
             <button
               type="button"
-              className="w-[48%] btn btn-ghost btn-outline"
+              className="w-full btn btn-ghost btn-outline"
               onClick={() => back()}
             >
               취소

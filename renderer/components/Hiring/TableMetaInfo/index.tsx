@@ -7,6 +7,7 @@ const tableMetaInfo = [
   '종료 일시',
   '등록비',
   '공고',
+  '지원자 수',
   '활성 여부',
 ] as const;
 

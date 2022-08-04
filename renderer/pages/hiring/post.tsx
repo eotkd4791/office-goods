@@ -7,7 +7,8 @@ import Breadcrumbs from 'renderer/components/Common/Breadcrumbs';
 import HiringPostTable from 'renderer/components/Hiring/HiringTable';
 import PageHead from 'renderer/components/Common/PageHead';
 import {
-  employeeTypeNames,
+  Contract,
+  Field,
   HirePost,
   OrderPriority,
   OrderValues,
@@ -18,48 +19,57 @@ import usePersistStore from 'renderer/hooks/usePersistStore';
 import OrderPosts from 'renderer/components/Hiring/OrderPosts';
 import EmptyPost from 'renderer/components/Hiring/EmptyPost';
 import dayjs from 'dayjs';
-
-type EmployeeTypes = 'doctor' | 'nurse' | 'office' | 'temporary';
+import usePost from 'renderer/hooks/usePost';
 
 const HiringPost: NextPage = () => {
   const { register, handleSubmit } = useForm<OrderValues>();
 
-  const { posts, setPosts } = usePostStore();
+  const { posts, setPosts } = usePost();
   const [orderedPosts, setOrderedPosts] = useState<HirePost[]>(posts || ([] as HirePost[]));
 
-  usePersistStore<HirePost[]>({ key: 'post.posts', setter: setPosts });
+  const sortAll = () => [...posts].sort(({ isActive }) => (isActive ? -1 : 1));
 
   const sortActiveFirst = (posts: HirePost[] = []) =>
     [...posts].sort(({ isActive }) => (isActive ? -1 : 1));
+
   const sortInctiveFirst = (posts: HirePost[] = []) =>
     [...posts].sort(({ isActive }) => (!isActive ? -1 : 1));
+
   const sortFromASC = (posts: HirePost[] = []) =>
     [...posts].sort((a, b) => (dayjs(a.from).isBefore(dayjs(b.from)) ? -1 : 1));
+
   const sortFromDESC = (posts: HirePost[] = []) =>
     [...posts].sort((a, b) => (dayjs(a.from).isAfter(dayjs(b.from)) ? -1 : 1));
+
   const sortToASC = (posts: HirePost[] = []) =>
-    [...posts].sort((a, b) => (dayjs(a.to).isBefore(dayjs(b.to)) ? 1 : -1));
+    [...posts].sort((a, b) => (dayjs(a.to).isBefore(dayjs(b.to)) ? -1 : 1));
+
   const sortToDESC = (posts: HirePost[] = []) =>
     [...posts].sort((a, b) => (dayjs(a.to).isAfter(dayjs(b.to)) ? -1 : 1));
+
   const sortPriceASC = (posts: HirePost[] = []) => [...posts].sort((a, b) => a.price - b.price);
+
   const sortPriceDESC = (posts: HirePost[] = []) => [...posts].sort((a, b) => b.price - a.price);
 
-  const orderPosts = handleSubmit(({ orderPriority, platform, ...employeeTypes }) => {
-    const postsFilteredByEmployeeType = [...posts].filter((post) =>
-      (Object.keys(employeeTypes) as EmployeeTypes[]).some(
-        (type) =>
-          employeeTypes[type] &&
-          post.categories &&
-          post.categories.includes(employeeTypeNames[type]) &&
-          (platform === post.platform || platform === Platform.ALL)
-      )
-    ) as HirePost[];
+  const orderPosts = handleSubmit(
+    ({ orderPriority, platform, field, department, type, contract }) => {
+      const postsFilteredByEmployeeType = [...posts].filter(
+        (post) =>
+          (platform === post.platform || platform === Platform.ALL) &&
+          (field === post.field || field === Field.ALL) &&
+          (department === post.department || department === 'all') &&
+          (type === post.type || type === 'all') &&
+          (contract === post.contract || contract === Contract.ALL)
+      ) as HirePost[];
 
-    setOrderedPosts(sortByOrderPriority(orderPriority, postsFilteredByEmployeeType));
-  });
+      setOrderedPosts(sortByOrderPriority(orderPriority, postsFilteredByEmployeeType));
+    }
+  );
 
   const sortByOrderPriority = (orderPriority: OrderPriority, posts: HirePost[]) => {
     switch (orderPriority) {
+      case 'all':
+        return sortAll();
       case 'active':
         return sortActiveFirst(posts);
       case 'inactive':

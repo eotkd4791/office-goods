@@ -1,10 +1,14 @@
 import Link from 'next/link';
 import { FC } from 'react';
 import DarkMode from 'renderer/components/Common/DarkMode';
+import Toast from 'renderer/components/Toast';
 import useUIStore from 'renderer/store/ui';
 
 const Header: FC = () => {
-  const toggleDrawer = useUIStore((state) => state.toggleDrawer);
+  const { visibleAlert, toggleDrawer } = useUIStore((state) => ({
+    toggleDrawer: state.toggleDrawer,
+    visibleAlert: state.visible.alert,
+  }));
 
   const onClick = () => {
     toggleDrawer();
@@ -12,7 +16,7 @@ const Header: FC = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 shadow-lg navbar bg-base-100">
+      <nav className="fixed top-0 left-0 shadow-lg navbar bg-base-100 z-[50]">
         <div className="navbar-start">
           <label
             tabIndex={0}
@@ -38,7 +42,7 @@ const Header: FC = () => {
         </div>
         <div className="navbar-center">
           <Link href="/" passHref>
-            <a className="text-2xl normal-case btn btn-ghost">🎁 Office Goods</a>
+            <a className="text-2xl normal-case btn btn-ghost">Office Goods</a>
           </Link>
         </div>
         <div className="navbar-end">
@@ -78,9 +82,8 @@ const Header: FC = () => {
               <span className="badge badge-xs badge-primary indicator-item" />
             </div>
           </button>
-          {/* <button className="w-32 mx-4 btn btn-primary">로그인</button>
-          <button className="w-32 mr-4 btn btn-neutral">로그아웃</button> */}
         </div>
+        {visibleAlert && <Toast />}
       </nav>
     </>
   );

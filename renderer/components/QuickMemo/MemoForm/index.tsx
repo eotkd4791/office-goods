@@ -28,7 +28,7 @@ const MemoForm: FC<Props> = ({ onClick, toggleMemo }) => {
         <header>
           <label
             htmlFor="memo"
-            className="flex items-center justify-between py-2 rounded-t-lg bg-primary text-primary-content focus:w-[404px]"
+            className="flex items-center justify-between p-2 rounded-t-lg bg-primary text-primary-content focus:w-[404px]"
           >
             <h3 className="pl-4 text-xl select-none">Memo</h3>
             <button className="flex items-center justify-center btn btn-ghost" onClick={onClick}>

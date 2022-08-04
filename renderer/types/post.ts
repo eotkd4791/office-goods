@@ -22,11 +22,34 @@ export const platformNames = {
   bric: '브릭',
 } as const;
 
-export const employeeTypeNames = {
-  doctor: '의사',
-  nurse: '간호사',
-  office: '행정직',
-  temporary: '계약직',
+export const enum Field {
+  ALL = 'all',
+  DOCTOR = 'doctor',
+  NURSE = 'nurse',
+  SUPPORT = 'support',
+  OFFICE = 'office',
+}
+
+export const enum Contract {
+  ALL = 'all',
+  FULLTIME = 'fulltime',
+  SHORT_PARTTIME = 'shortParttime',
+  PARTTIME = 'longParttime',
+}
+
+export const fieldNames = {
+  [Field.ALL]: 'all',
+  [Field.DOCTOR]: '진료부',
+  [Field.NURSE]: '간호부',
+  [Field.SUPPORT]: '진료지원부',
+  [Field.OFFICE]: '행정부',
+} as const;
+
+export const contractNames = {
+  [Contract.ALL]: 'all',
+  [Contract.FULLTIME]: '정규직',
+  [Contract.SHORT_PARTTIME]: '단기계약직',
+  [Contract.PARTTIME]: '계약직',
 } as const;
 
 export interface HirePost {
@@ -39,6 +62,11 @@ export interface HirePost {
   isActive: boolean;
   categories?: string[];
   price: number;
+  field: Field;
+  department: string;
+  type: string;
+  contract: Contract;
+  countOfApplicants: number;
 }
 
 export interface Category {
@@ -47,6 +75,7 @@ export interface Category {
 }
 
 export type OrderPriority =
+  | 'all'
   | 'active'
   | 'inactive'
   | 'from_asc'
@@ -55,20 +84,12 @@ export type OrderPriority =
   | 'to_desc'
   | 'price_asc'
   | 'price_desc';
-export interface OrderValues {
-  platform:
-    | Platform.ALL
-    | Platform.SARAMIN
-    | Platform.JOBKOREA
-    | Platform.MEDIGATE
-    | Platform.MEDIJOB
-    | Platform.NURSCAPE
-    | Platform.NURSEJOB
-    | Platform.BRIC;
 
+export interface OrderValues {
+  platform: Platform;
   orderPriority: OrderPriority;
-  doctor: boolean;
-  nurse: boolean;
-  office: boolean;
-  temporary: boolean;
+  field: typeof fieldNames[Field] | 'all';
+  department: string & 'all';
+  type: string & 'all';
+  contract: typeof contractNames[Contract] | 'all';
 }
