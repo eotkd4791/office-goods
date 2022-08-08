@@ -1,23 +1,28 @@
 import { FC, MouseEventHandler } from 'react';
 import { useForm } from 'react-hook-form';
-
+import useMemoStore from 'renderer/store/memo';
 import useUIStore from 'renderer/store/ui';
+import { Memo } from 'renderer/types/memo';
 
 interface Props {
   onClick: MouseEventHandler<HTMLButtonElement>;
   toggleMemo: () => void;
 }
 
+type MemoContent = Omit<Memo, 'id' | 'createdAt'>;
+
 const MemoForm: FC<Props> = ({ onClick, toggleMemo }) => {
   const closeAll = useUIStore((state) => state.closeAll);
+  const createMemo = useMemoStore((state) => state.createMemo);
 
-  const { handleSubmit } = useForm();
+  const { handleSubmit, register } = useForm<MemoContent>();
 
   const closeMemo = () => {
     closeAll();
   };
 
-  const onSubmit = handleSubmit(() => {
+  const onSubmit = handleSubmit(({ memo }) => {
+    createMemo(memo);
     toggleMemo();
   });
 
@@ -37,18 +42,22 @@ const MemoForm: FC<Props> = ({ onClick, toggleMemo }) => {
           </label>
         </header>
         <textarea
-          name="memo"
           id="memo"
           placeholder="메모를 입력해주세요."
           className="w-full rounded-t-none resize-none textarea textarea-primary"
           cols={30}
           rows={10}
+          {...register('memo')}
         />
         <footer className="self-end w-[10rem] mt-4 flex justify-between">
           <button type="submit" className="w-[48%] btn btn-info">
             저장
           </button>
-          <button onClick={closeMemo} className="w-[48%] btn btn-ghost btn-outline">
+          <button
+            type="button"
+            onClick={closeMemo}
+            className="w-[48%] btn btn-ghost btn-outline bg-neutral text-neutral-content"
+          >
             취소
           </button>
         </footer>

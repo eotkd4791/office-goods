@@ -2,6 +2,7 @@ import { NextPage } from 'next';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import dayjs from 'dayjs';
 
 import Breadcrumbs from 'renderer/components/Common/Breadcrumbs';
 import HiringPostTable from 'renderer/components/Hiring/HiringTable';
@@ -14,17 +15,14 @@ import {
   OrderValues,
   Platform,
 } from 'renderer/types/post';
-import usePostStore from 'renderer/store/post';
-import usePersistStore from 'renderer/hooks/usePersistStore';
 import OrderPosts from 'renderer/components/Hiring/OrderPosts';
 import EmptyPost from 'renderer/components/Hiring/EmptyPost';
-import dayjs from 'dayjs';
 import usePost from 'renderer/hooks/usePost';
 
 const HiringPost: NextPage = () => {
   const { register, handleSubmit } = useForm<OrderValues>();
 
-  const { posts, setPosts } = usePost();
+  const { posts } = usePost();
   const [orderedPosts, setOrderedPosts] = useState<HirePost[]>(posts || ([] as HirePost[]));
 
   const sortAll = () => [...posts].sort(({ isActive }) => (isActive ? -1 : 1));

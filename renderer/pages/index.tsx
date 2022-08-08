@@ -1,18 +1,30 @@
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import Calendar from 'react-calendar';
+import Breadcrumbs from 'renderer/components/Common/Breadcrumbs';
 import PageHead from 'renderer/components/Common/PageHead';
 
-function Home() {
-  const { replace } = useRouter();
+import 'react-calendar/dist/Calendar.css';
+import MemoList from 'renderer/components/MemoList';
+import useMemos from 'renderer/hooks/useMemos';
 
-  useEffect(() => {
-    replace('/hiring/post');
-  }, []);
+function Home() {
+  const { memos } = useMemos();
 
   return (
     <>
       <PageHead title="Home" />
-      <div className="w-full"></div>
+      <div className="w-full">
+        <header className="w-full">
+          <Breadcrumbs />
+        </header>
+        <article className="flex items-start justify-between w-full">
+          <div>
+            <Calendar locale="ko-KR" />
+          </div>
+          <div className="w-[70%] overflow-x-auto">
+            <MemoList memos={memos} />
+          </div>
+        </article>
+      </div>
     </>
   );
 }
