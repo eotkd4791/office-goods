@@ -25,7 +25,7 @@ const MemoList: FC<Props> = ({ memos }) => {
         </tr>
       </thead>
       <tbody>
-        {memos.length > 0 ? (
+        {memos && memos.length > 0 ? (
           memos.map((memo) => (
             <EachMemo
               key={memo.id}
