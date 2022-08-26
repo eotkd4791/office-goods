@@ -1,30 +1,24 @@
-import '../styles/globals.css';
 import 'renderer/utils/dayjs';
+import '../styles/globals.css';
 
-import type { AppProps } from 'next/app';
 import { ThemeProvider } from 'next-themes';
+import type { AppProps } from 'next/app';
 
-import { QueryClient, QueryClientProvider } from 'react-query';
-
-import Header from 'renderer/layouts/Header';
-import Drawer from 'renderer/layouts/Drawer';
 import ButtonAddMemo from 'renderer/components/QuickMemo/ButtonAddMemo';
-
-const queryClient = new QueryClient();
+import Drawer from 'renderer/layouts/Drawer';
+import Header from 'renderer/layouts/Header';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <Drawer>
-          <div className="w-full p-8 mt-[6rem]">
-            <Header />
-            <Component {...pageProps} />
-            <ButtonAddMemo />
-          </div>
-        </Drawer>
-      </ThemeProvider>
-    </QueryClientProvider>
+    <ThemeProvider>
+      <Drawer>
+        <div className="w-full p-8 mt-[6rem]">
+          <Header />
+          <Component {...pageProps} />
+          <ButtonAddMemo />
+        </div>
+      </Drawer>
+    </ThemeProvider>
   );
 }
 

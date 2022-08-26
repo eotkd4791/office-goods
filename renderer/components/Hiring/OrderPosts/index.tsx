@@ -22,8 +22,8 @@ const OrderPosts: FC<Props> = ({ onSubmit, register }) => {
   const [types, setTypes] = useState<string[]>([]);
 
   useEffect(() => {
-    setDepartments(posts.map(({ department }) => department).sort((a, b) => a.localeCompare(b)));
-    setTypes(posts.map(({ type }) => type).sort((a, b) => a.localeCompare(b)));
+    setDepartments(posts?.map(({ department }) => department).sort((a, b) => a.localeCompare(b)));
+    setTypes(posts?.map(({ type }) => type).sort((a, b) => a.localeCompare(b)));
   }, [posts]);
 
   return (
@@ -79,7 +79,7 @@ const OrderPosts: FC<Props> = ({ onSubmit, register }) => {
           {...register('department')}
         >
           <option value="all">부서</option>
-          {departments.map((department, index) => (
+          {departments?.map((department, index) => (
             <option key={index} value={department}>
               {department}
             </option>
@@ -91,7 +91,7 @@ const OrderPosts: FC<Props> = ({ onSubmit, register }) => {
           {...register('type')}
         >
           <option value="all">직종</option>
-          {types.map((type, index) => (
+          {types?.map((type, index) => (
             <option key={index} value={type}>
               {type}
             </option>

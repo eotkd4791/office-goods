@@ -1,8 +1,8 @@
 import { FC } from 'react';
 
+import PostList from 'renderer/components/PostList';
 import { HirePost } from 'renderer/types/post';
 import TableMetaInfo from '../TableMetaInfo';
-import PostList from 'renderer/components/PostList';
 
 interface Props {
   posts: HirePost[];

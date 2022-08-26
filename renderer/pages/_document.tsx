@@ -1,5 +1,5 @@
-import { Html, Head, Main, NextScript } from 'next/document';
 import { useTheme } from 'next-themes';
+import { Head, Html, Main, NextScript } from 'next/document';
 
 export default function Document() {
   const { theme } = useTheme();

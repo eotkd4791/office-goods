@@ -1,7 +1,7 @@
-import { persistProduce } from 'renderer/utils/storeUtils';
-import create from 'zustand';
 import { HirePost } from 'renderer/types/post';
+import { persistProduce } from 'renderer/utils/storeUtils';
 import { v4 as uuidv4 } from 'uuid';
+import create from 'zustand';
 
 interface PostState {
   posts: HirePost[];

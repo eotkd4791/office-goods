@@ -1,18 +1,14 @@
 import { FC, memo } from 'react';
+import EachMemo from 'renderer/components/Memo';
 import useMemoStore from 'renderer/store/memo';
 import { Memo } from 'renderer/types/memo';
-import EachMemo from 'renderer/components/Memo';
 
 interface Props {
   memos: Memo[];
 }
 
 const MemoList: FC<Props> = ({ memos }) => {
-  const { toggleMemo, updateMemo, deleteMemo } = useMemoStore((state) => ({
-    toggleMemo: state.toggleMemo,
-    updateMemo: state.updateMemo,
-    deleteMemo: state.deleteMemo,
-  }));
+  const memoActions = useMemoStore();
 
   return (
     <table className="table w-full">
@@ -26,18 +22,12 @@ const MemoList: FC<Props> = ({ memos }) => {
       </thead>
       <tbody>
         {memos && memos.length > 0 ? (
-          memos.map((memo) => (
-            <EachMemo
-              key={memo.id}
-              memo={memo}
-              toggleMemo={toggleMemo}
-              updateMemo={updateMemo}
-              deleteMemo={deleteMemo}
-            />
-          ))
+          memos.map((memo) => <EachMemo key={memo.id} memo={memo} {...memoActions} />)
         ) : (
-          <tr className="flex justify-center">
-            <td className="font-bold text-secondary">⚠️ 등록된 메모가 없습니다.</td>
+          <tr className="w-full">
+            <td className="w-full font-bold text-center text-secondary" colSpan={3}>
+              ⚠️ 등록된 메모가 없습니다.
+            </td>
           </tr>
         )}
       </tbody>

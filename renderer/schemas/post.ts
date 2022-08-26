@@ -1,4 +1,4 @@
-import { Contract, Field, Platform } from 'renderer/types/post';
+import { Platform } from 'renderer/types/post';
 import * as yup from 'yup';
 
 const enum postValidationMessage {

@@ -1,7 +1,7 @@
 import { FC, MouseEventHandler } from 'react';
 import { BsPencilSquare as Pencil } from 'react-icons/bs';
-import useUIStore from 'renderer/store/ui';
 import MemoForm from 'renderer/components/QuickMemo/MemoForm';
+import useUIStore from 'renderer/store/ui';
 
 const ButtonAddMemo: FC = () => {
   const { visibleMemo, toggleMemo } = useUIStore((state) => ({

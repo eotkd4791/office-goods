@@ -1,5 +1,5 @@
-import create from 'zustand';
 import { persistProduce } from 'renderer/utils/storeUtils';
+import create from 'zustand';
 
 interface VisibilityUI {
   drawer: boolean;

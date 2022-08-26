@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 
 import { FC, useEffect, useState } from 'react';
 
-import { paths, pathNames } from 'renderer/types/route';
+import { pathNames, paths } from 'renderer/types/route';
 
 export interface BreadCrumb {
   key: number;

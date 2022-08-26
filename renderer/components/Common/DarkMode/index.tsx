@@ -1,5 +1,5 @@
-import { FC, useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
+import { FC, useEffect, useState } from 'react';
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
 import { Theme } from 'renderer/types/ui';
 import persistStore from 'renderer/utils/persistStore';

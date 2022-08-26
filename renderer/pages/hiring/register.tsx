@@ -1,15 +1,15 @@
+import { yupResolver } from '@hookform/resolvers/yup';
+import dayjs from 'dayjs';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import dayjs from 'dayjs';
 import Breadcrumbs from 'renderer/components/Common/Breadcrumbs';
 import PageHead from 'renderer/components/Common/PageHead';
-import { HirePost, Platform, platformNames } from 'renderer/types/post';
+import { contracts, fields } from 'renderer/fixtures/register';
 import { postSchema } from 'renderer/schemas/post';
 import usePostStore from 'renderer/store/post';
 import useUIStore from 'renderer/store/ui';
-import { contracts, fields } from 'renderer/fixtures/register';
+import { HirePost, Platform, platformNames } from 'renderer/types/post';
 
 type FormValues = Omit<HirePost, 'id'>;
 
