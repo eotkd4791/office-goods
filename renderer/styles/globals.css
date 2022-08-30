@@ -25,4 +25,16 @@
   .avatar img {
     @apply object-contain !important;
   }
+
+  .table th:first-child {
+    z-index: unset;
+  }
+}
+/* {
+}*/
+.fc
+  *:not(.fc-popover, .fc-daygrid-day-frame.fc-scrollgrid-sync-inner, .fc-daygrid-day.fc-day, .fc-theme-standard
+    td, .fc-theme-standard
+    th, .fc-highlight, .fc-event-title-container, .fc-event-main-frame, .fc-event-resizer, .fc-event-resizer-start, .fc-event-resizer-end, .fc-event-main, .fc-daygrid-event, .fc-daygrid-block-event, .fc-h-event, .fc-event, .fc-event-draggable, .fc-event-resizable, .fc-event-start, .fc-event-end, .fc-event-past, .fc-daygrid-day-events, .fc-daygrid-event-harness, .fc-daygrid-day-bottom) {
+  z-index: 0;
 }

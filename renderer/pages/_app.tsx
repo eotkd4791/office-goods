@@ -1,6 +1,9 @@
 import 'renderer/utils/dayjs';
 import '../styles/globals.css';
 
+import '@fullcalendar/common/main.css';
+import '@fullcalendar/daygrid/main.css';
+
 import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
 

@@ -1,4 +1,13 @@
-module.exports = {
+/** @type {import('next').NextConfig} */
+const withTM = require('next-transpile-modules')([
+  '@fullcalendar/common',
+  '@babel/preset-react',
+  '@fullcalendar/daygrid',
+  '@fullcalendar/interaction',
+  '@fullcalendar/react',
+]);
+
+module.exports = withTM({
   images: {
     loader: 'akamai',
     path: '/',
@@ -7,7 +16,9 @@ module.exports = {
     if (!isServer) {
       config.target = 'electron-renderer';
     }
-
     return config;
   },
-};
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+});
