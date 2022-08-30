@@ -25,7 +25,7 @@ const MemoList: FC<Props> = ({ memos }) => {
           memos.map((memo) => <EachMemo key={memo.id} memo={memo} {...memoActions} />)
         ) : (
           <tr className="w-full">
-            <td className="w-full font-bold text-center text-secondary" colSpan={3}>
+            <td className="w-full font-bold text-center bg-slate-100 text-warning" colSpan={4}>
               ⚠️ 등록된 메모가 없습니다.
             </td>
           </tr>
