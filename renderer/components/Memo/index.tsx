@@ -1,5 +1,6 @@
 import { ChangeEventHandler, FC, useCallback, useState } from 'react';
 import { Memo } from 'renderer/types/memo';
+import MemoContent from './MemoContent';
 
 interface Props {
   memo: Memo;
@@ -45,12 +46,7 @@ const EachMemo: FC<Props> = ({
       </td>
       <td className="max-w-[500px] w-full whitespace-pre-wrap break-words break-all">
         {isUpdating ? (
-          <input
-            placeholder="수정 내용을 입력하세요."
-            className="w-full input input-bordered"
-            onChange={onChange}
-            value={newMemo}
-          />
+          <MemoContent value={newMemo} onChange={onChange} />
         ) : (
           <article className={`${checked ? 'line-through' : 'no-underline'}`}>{memo}</article>
         )}
