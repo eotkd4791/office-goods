@@ -6,27 +6,33 @@ import create from 'zustand';
 
 interface MemoState {
   memos: Memo[];
-  createMemo: (memo: string) => void;
+  date: string[];
+  createMemo: (memo: Memo) => void;
   updateMemo: (memo: Memo) => void;
   deleteMemo: (id: string) => void;
   toggleMemo: (id: string) => void;
   setMemos: (memo: Memo[]) => void;
+  setMemoDate: (from: string, to?: string) => void;
 }
 
 const persistMemoProduce = persistProduce('memo');
 
 const useMemoStore = create<MemoState>((set) => ({
+  date: [],
   memos: [],
-  createMemo: (memo) =>
+  createMemo: ({ memo, startDate, endDate }) =>
     set(
       persistMemoProduce((state) => {
         if (state.memos) {
-          state.memos.push({
+          const newMemo = {
             id: uuidv4(),
             memo,
             createdAt: dayjs(),
+            startDate: startDate ? startDate : dayjs().format('YYYY-MM-DD'),
+            endDate: endDate ? endDate : dayjs().format('YYYY-MM-DD'),
             checked: false,
-          });
+          };
+          state.memos.push(newMemo);
         } else {
           state.memos = [];
         }
@@ -35,7 +41,7 @@ const useMemoStore = create<MemoState>((set) => ({
   updateMemo: (newMemo) =>
     set(
       persistMemoProduce((state) => {
-        state.memos = state.memos?.map((memo) => (memo.id === newMemo.id ? newMemo : memo));
+        state.memos = state.memos?.map((memo) => (memo.id === newMemo.id ? newMemo : memo)) || [];
       })
     ),
   deleteMemo: (id) =>
@@ -59,6 +65,13 @@ const useMemoStore = create<MemoState>((set) => ({
         state.memos = memos;
       })
     ),
+  setMemoDate: (from, to) => {
+    set(
+      persistMemoProduce((state) => {
+        state.date = [from, to || from];
+      })
+    );
+  },
 }));
 
 export default useMemoStore;

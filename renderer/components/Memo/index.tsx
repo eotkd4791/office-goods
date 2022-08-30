@@ -10,7 +10,7 @@ interface Props {
 }
 
 const EachMemo: FC<Props> = ({
-  memo: { id, memo, checked, createdAt },
+  memo: { id, memo, checked, createdAt, startDate, endDate },
   toggleMemo,
   updateMemo,
   deleteMemo,
@@ -27,9 +27,9 @@ const EachMemo: FC<Props> = ({
   }, []);
 
   const onUpdate = useCallback(() => {
-    updateMemo({ id, memo: newMemo, checked, createdAt });
+    updateMemo({ id, memo: newMemo, checked, createdAt, startDate, endDate });
     setIsUpdating(false);
-  }, []);
+  }, [newMemo]);
 
   return (
     <tr>

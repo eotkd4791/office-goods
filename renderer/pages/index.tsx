@@ -1,5 +1,4 @@
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+import Calendar from 'renderer/components/Calendar';
 
 import Breadcrumbs from 'renderer/components/Common/Breadcrumbs';
 import PageHead from 'renderer/components/Common/PageHead';
@@ -17,11 +16,19 @@ function Home() {
         <header className="w-full">
           <Breadcrumbs />
         </header>
-        <article className="flex items-start justify-between w-full">
-          <div>
-            <Calendar locale="ko-KR" />
+        <article className="flex flex-col items-start justify-between w-full">
+          <div className="w-full mb-[1rem]">
+            <Calendar
+              events={memos.map(({ id, memo, startDate, endDate }) => ({
+                id,
+                title: memo,
+                start: startDate,
+                end: endDate,
+              }))}
+            />
           </div>
-          <div className="w-[70%] overflow-x-auto">
+          <div className="text-xl font-bold divider">메모 목록</div>
+          <div className="w-full overflow-x-auto">
             <MemoList memos={memos} />
           </div>
         </article>
