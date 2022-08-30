@@ -44,7 +44,6 @@ const Calendar: FC<Props> = ({ events }) => {
       height="auto"
       locale="ko-KR"
       events={events}
-      themeSystem="Darkly"
       dayMaxEventRows={3}
       eventResize={updateMemoRange}
       eventDrop={updateMemoRange}
