@@ -2754,6 +2754,11 @@ chardet@^0.7.0:
   resolved "https://registry.yarnpkg.com/chardet/-/chardet-0.7.0.tgz#90094849f0937f2eedc2425d0d28a9e5f0cbad9e"
   integrity sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==
 
+chart.js@^3.9.1:
+  version "3.9.1"
+  resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-3.9.1.tgz#3abf2c775169c4c71217a107163ac708515924b8"
+  integrity sha512-Ro2JbLmvg83gXF5F4sniaQ+lTbSv18E+TIf2cOeiH1Iqd2PGFOtem+DUufMZsCJwFE7ywPOpfXFBwRTGq7dh6w==
+
 chokidar@^3.5.3:
   version "3.5.3"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-3.5.3.tgz#1cf37c8707b932bd1af1ae22c0432e2acd1903bd"
@@ -5794,11 +5799,6 @@ npm-run-path@^5.1.0:
   dependencies:
     path-key "^4.0.0"
 
-numeral@^1.5.3:
-  version "1.5.6"
-  resolved "https://registry.yarnpkg.com/numeral/-/numeral-1.5.6.tgz#3831db968451b9cf6aff9bf95925f1ef8e37b33f"
-  integrity sha512-ajp+xurmcvkOLZURhHP2O7AyyF+v2xQDeCODlzALrNeAQnriYaWu0c8I/mu985WaVl2O2lgdOt0QgQHlCAQ3UA==
-
 object-assign@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
@@ -6274,11 +6274,6 @@ quick-lru@^5.1.1:
   resolved "https://registry.yarnpkg.com/quick-lru/-/quick-lru-5.1.1.tgz#366493e6b3e42a3a6885e2e99d18f80fb7a8c932"
   integrity sha512-WuyALRjWPDGtt/wzJiadO5AXY+8hZ80hVpe6MyivgraREW751X3SbhRvG3eLKOYN+8VEvqLcf3wdnt44Z4S4SA==
 
-randgen@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/randgen/-/randgen-0.1.0.tgz#4c8dd60d72c013953d2dc63f6e0f4193072408a8"
-  integrity sha512-z0xKLFpnQdh+HxSDrR71trUqR/U8OnPUU3FYRXdZDr3sw99+scgFIZmwSHbR2L//sgX5oq9opfZTkC5v1WCkoQ==
-
 randombytes@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/randombytes/-/randombytes-2.1.0.tgz#df6f84372f0270dc65cdf6291349ab7a473d4f2a"
@@ -6306,14 +6301,10 @@ react-calendar@^3.7.0:
     merge-class-names "^1.1.1"
     prop-types "^15.6.0"
 
-react-chart@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/react-chart/-/react-chart-0.0.1.tgz#7f472678b64e43ca2c09df16fea724784630bb90"
-  integrity sha512-w8jDwwueQ05KuKV0NprsJe5cXsk5UlZKUYHXTXAn6LK34dBBtDN4dxLtpHfq0jttbLoVNsColmc0MuhiE4Amhw==
-  dependencies:
-    numeral "^1.5.3"
-    randgen "^0.1.0"
-    react "~0.10.0"
+react-chartjs-2@^4.3.1:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/react-chartjs-2/-/react-chartjs-2-4.3.1.tgz#9941e7397fb963f28bb557addb401e9ff96c6681"
+  integrity sha512-5i3mjP6tU7QSn0jvb8I4hudTzHJqS8l00ORJnVwI2sYu0ihpj83Lv2YzfxunfxTZkscKvZu2F2w9LkwNBhj6xA==
 
 react-dom@^18.1.0:
   version "18.2.0"
@@ -6378,11 +6369,6 @@ react@^18.1.0:
   integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==
   dependencies:
     loose-envify "^1.1.0"
-
-react@~0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-0.10.0.tgz#8c82753593d3f325ca99d820f7400ab02f1ee1f8"
-  integrity sha512-BJHANYsDIKYPZVKp1qjynvmELGETFvFzGsj1SLPOwRjnm1QtMp38fUcf67uc5T+QBBx29xHcgn3BNVug7/mwBA==
 
 read-cache@^1.0.0:
   version "1.0.0"
