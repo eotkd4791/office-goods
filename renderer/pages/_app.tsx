@@ -4,9 +4,12 @@ import '../styles/globals.css';
 import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
 
+import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js';
 import ButtonAddMemo from 'renderer/components/QuickMemo/ButtonAddMemo';
 import Drawer from 'renderer/layouts/Drawer';
 import Header from 'renderer/layouts/Header';
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
