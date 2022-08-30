@@ -16,15 +16,26 @@ const Breadcrumbs: FC = () => {
   const [breadcrumbs, setBreadcrumbs] = useState<BreadCrumb[]>([]);
 
   useEffect(() => {
-    setBreadcrumbs(
-      (asPath.split('/') as (keyof typeof paths)[])
-        .filter((path) => path.length > 0)
-        .map((path, index) => ({
-          key: index + 1,
-          url: paths[path],
-          title: pathNames[path],
-        }))
-    );
+    const tempBreadcrumbs = (asPath.split('/') as (keyof typeof paths)[])
+      .filter((path) => path.length > 0)
+      .map((path, index) => ({
+        key: index + 1,
+        url: paths[path],
+        title: pathNames[path],
+      }));
+
+    const nextBreadcrumbs =
+      tempBreadcrumbs.length > 0
+        ? tempBreadcrumbs
+        : ([
+            {
+              key: 1,
+              url: paths.home,
+              title: pathNames.home,
+            },
+          ] as BreadCrumb[]);
+
+    setBreadcrumbs(nextBreadcrumbs);
   }, [asPath]);
 
   return (
