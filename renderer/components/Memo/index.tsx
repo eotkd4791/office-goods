@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FC, useState } from 'react';
+import { ChangeEventHandler, FC, useCallback, useState } from 'react';
 import { Memo } from 'renderer/types/memo';
 
 interface Props {
@@ -17,18 +17,18 @@ const EachMemo: FC<Props> = ({
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const [newMemo, setNewMemo] = useState<string>(memo);
 
-  const startUpdate = () => {
+  const startUpdate = useCallback(() => {
     setIsUpdating(true);
-  };
+  }, []);
 
-  const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+  const onChange: ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
     setNewMemo(e.target.value);
-  };
+  }, []);
 
-  const onUpdate = () => {
+  const onUpdate = useCallback(() => {
     updateMemo({ id, memo: newMemo, checked, createdAt });
     setIsUpdating(false);
-  };
+  }, []);
 
   return (
     <tr>
@@ -52,7 +52,7 @@ const EachMemo: FC<Props> = ({
             value={newMemo}
           />
         ) : (
-          memo
+          <article className={`${checked ? 'line-through' : 'no-underline'}`}>{memo}</article>
         )}
       </td>
       <td className="w-full text-right">
