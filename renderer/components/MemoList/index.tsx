@@ -2,6 +2,7 @@ import { FC, memo } from 'react';
 import EachMemo from 'renderer/components/Memo';
 import useMemoStore from 'renderer/store/memo';
 import { Memo } from 'renderer/types/memo';
+import { FcAddRow as AddRow } from 'react-icons/fc';
 
 interface Props {
   memos: Memo[];
@@ -25,8 +26,11 @@ const MemoList: FC<Props> = ({ memos }) => {
           memos.map((memo) => <EachMemo key={memo.id} memo={memo} {...memoActions} />)
         ) : (
           <tr className="w-full">
-            <td className="w-full font-bold text-center bg-slate-100 text-warning" colSpan={4}>
-              ⚠️ 등록된 메모가 없습니다.
+            <td className="w-full font-bold text-center bg-slate-100" colSpan={4}>
+              <div className="flex items-center justify-center h-16">
+                <AddRow style={{ fontSize: '5rem' }} />
+                <h2 className="ml-8 text-[1.2rem] underline">등록된 메모가 없습니다.</h2>
+              </div>
             </td>
           </tr>
         )}
