@@ -3,12 +3,20 @@ import { FC } from 'react';
 import DarkMode from 'renderer/components/Common/DarkMode';
 import Toast from 'renderer/components/Toast';
 import useUIStore from 'renderer/store/ui';
+import persistStore from 'renderer/utils/persistStore';
 
 const Header: FC = () => {
   const { visibleAlert, toggleDrawer } = useUIStore((state) => ({
     toggleDrawer: state.toggleDrawer,
     visibleAlert: state.visible.alert,
   }));
+
+  /**
+   * @description reset handler for testing
+   */
+  const resetData = () => {
+    persistStore.clear();
+  };
 
   const onClick = () => {
     toggleDrawer();
@@ -82,6 +90,11 @@ const Header: FC = () => {
               <span className="badge badge-xs badge-primary indicator-item" />
             </div>
           </button>
+          {false && (
+            <button className="btn btn-error" onClick={resetData}>
+              리셋
+            </button>
+          )}
         </div>
         {visibleAlert && <Toast />}
       </nav>
