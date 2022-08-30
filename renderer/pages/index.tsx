@@ -19,12 +19,14 @@ function Home() {
         <article className="flex flex-col items-start justify-between w-full">
           <div className="w-full mb-[1rem]">
             <Calendar
-              events={memos.map(({ id, memo, startDate, endDate }) => ({
-                id,
-                title: memo,
-                start: startDate,
-                end: endDate,
-              }))}
+              events={
+                memos?.map(({ id, memo, startDate, endDate }) => ({
+                  id,
+                  title: memo,
+                  start: startDate,
+                  end: endDate,
+                })) || []
+              }
             />
           </div>
           <div className="text-xl font-bold divider">메모 목록</div>
