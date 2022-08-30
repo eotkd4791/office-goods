@@ -9,16 +9,16 @@ const Dashboard: FC = () => {
 
   useEffect(() => {
     setTotalCountOfApplicants(
-      posts.reduce(
+      posts?.reduce(
         (countOfApplicants, post) =>
           countOfApplicants + post.countOfApplicants ? post.countOfApplicants : 0,
         0
-      )
+      ) || 0
     );
   }, [posts]);
 
   useEffect(() => {
-    setTotalPrice(posts.reduce((sumOfPrice, post) => sumOfPrice + post.price, 0));
+    setTotalPrice(posts?.reduce((sumOfPrice, post) => sumOfPrice + post.price, 0) || 0);
   }, [posts]);
 
   return (
@@ -41,7 +41,7 @@ const Dashboard: FC = () => {
             </svg>
           </div>
           <div className="stat-title">활성 채용공고 수</div>
-          <div className="stat-value">{posts.filter(({ isActive }) => isActive).length}</div>
+          <div className="stat-value">{posts?.filter(({ isActive }) => isActive).length || 0}</div>
           <div className="stat-desc">Jan 1st - Feb 1st</div>
         </div>
 
