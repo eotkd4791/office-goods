@@ -7,9 +7,8 @@ interface MutateCallback<T> {
 
 export const persistProduce =
   (type: string) =>
-  <T>(mutate: MutateCallback<T>) => {
-    return produce((state: T) => {
+  <T>(mutate: MutateCallback<T>) =>
+    produce((state: T) => {
       mutate(state);
       persistStore.set(type, state);
     });
-  };
