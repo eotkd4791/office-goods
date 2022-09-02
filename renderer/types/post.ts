@@ -48,7 +48,7 @@ export const fieldNames = {
 export const contractNames = {
   [Contract.ALL]: 'all',
   [Contract.FULLTIME]: '정규직',
-  [Contract.SHORT_PARTTIME]: '단기계약직',
+  [Contract.SHORT_PARTTIME]: '아르바이트',
   [Contract.PARTTIME]: '계약직',
 } as const;
 
