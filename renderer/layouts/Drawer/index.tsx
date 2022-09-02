@@ -66,12 +66,18 @@ const Drawer: FC<Props> = ({ children }) => {
               <summary className="text-lg font-bold">{pathNames[Route.HIRING]}</summary>
               <ol onClick={onClick}>
                 {menuList.map(({ key, title, url }) => (
-                  <li key={key} className={`mb-2 ${url === pathname ? 'link-active' : ''}`}>
+                  <li
+                    key={key}
+                    className={`mb-2 ${url === pathname ? 'link-active text-primary-content' : ''}`}
+                  >
                     <Link href={url} passHref>
                       <a className="flex items-center justify-between w-full h-full group">
                         <h3>{title}</h3>
-                        <div className="invisible group-hover:visible">
-                          <kbd className="kbd kbd-sm">ctrl</kbd> +{' '}
+                        <div className="invisible text-black group-hover:visible">
+                          <kbd className="kbd kbd-sm">ctrl</kbd>
+                          <span className={`${url === pathname ? 'text-white' : 'text-black'}`}>
+                            &nbsp; + &nbsp;
+                          </span>
                           <kbd className="kbd kbd-sm">{key}</kbd>
                         </div>
                       </a>
