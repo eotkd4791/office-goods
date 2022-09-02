@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
 import { fieldNames, HirePost, platformNames } from 'renderer/types/post';
+import { FcPlus as Plus } from 'react-icons/fc';
 
 interface Props {
   post: HirePost;
@@ -28,8 +29,12 @@ const PostList: FC<Props> = ({
       <td>
         {title}
         <br />
-        {field && <span className="mr-1 badge badge-accent badge-sm">{fieldNames[field]}</span>}
-        {type && <span className="mr-1 badge badge-ghost badge-info badge-sm">{type}</span>}
+        {field && (
+          <span className="mr-1 badge badge-secondary text-secondary-content badge-sm">
+            {fieldNames[field]}
+          </span>
+        )}
+        {type && <span className="mr-1 badge badge-info badge-sm text-info-content">{type}</span>}
       </td>
       <td>
         <time dateTime={dayjs(from).format('YYYY년 MM월 DD일')}>
@@ -49,14 +54,15 @@ const PostList: FC<Props> = ({
       <td>
         <Link href="https://www.naver.com">
           <a target="_blank" className="link link-secondary">
-            공고 보기
+            보기
           </a>
         </Link>
       </td>
-      <td className="text-center">
-        <h3 className="hover:underline underline-offset-4">
-          {countOfApplicants ? countOfApplicants : 0}
-        </h3>
+      <td>
+        <button className="flex items-center px-1 btn btn-ghost" onClick={() => alert('11')}>
+          <h3 className="mr-2 hover:underline">{countOfApplicants ? countOfApplicants : 1000}</h3>
+          <Plus className="w-[1.8rem] h-full" />
+        </button>
       </td>
       <td>
         {isActive ? (
