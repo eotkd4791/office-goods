@@ -1,44 +1,48 @@
 import { NextPage } from 'next';
-import { Pie } from 'react-chartjs-2';
+import { useEffect, useMemo } from 'react';
 import Breadcrumbs from 'renderer/components/Common/Breadcrumbs';
+import PageHead from 'renderer/components/Common/PageHead';
+import PieChart from 'renderer/components/PieChart';
 import usePostStore from 'renderer/store/post';
+import { pathNames } from 'renderer/types/route';
+import { Route } from 'renderer/types/route';
 
 const HiringAnalysis: NextPage = () => {
   const { posts } = usePostStore();
 
-  // const postDatasetForChart = useMemo(() => posts.map(({ price }) => price), [posts]);
+  const postDatasetForChart = useMemo(() => posts?.map(({ price }) => price) || [], [posts]);
 
-  const data = {
-    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    datasets: [
-      {
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
-        ],
-        borderWidth: 1,
-      },
-    ],
-  };
+  useEffect(() => {
+    console.log(postDatasetForChart);
+  }, []);
 
   return (
     <>
-      <Breadcrumbs />
-      <Pie data={data} />
+      <PageHead title={pathNames[Route.ANALYSIS]} />
+      <header className="w-full">
+        <Breadcrumbs />
+      </header>
+      <div className="w-full">
+        <form className="form-control">
+          <select name="chartType" id="chartType" className="select select-bordered">
+            <option value="stick">막대그래프</option>
+            <option value="pie">원형그래프</option>
+          </select>
+          <select name="" id="" className="select select-bordered">
+            <option value="quater">분기별</option>
+            <option value="half">반기별</option>
+            <option value="yearly">연간</option>
+          </select>
+          <select name="" id="" className="select select-bordered">
+            <option value="quater">분기별</option>
+            <option value="half">반기별</option>
+            <option value="yearly">연간</option>
+          </select>
+          <input type="text" className="input input-bordered" />
+        </form>
+      </div>
+
+      {/* <PieChart /> */}
     </>
   );
 };

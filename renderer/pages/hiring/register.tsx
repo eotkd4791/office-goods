@@ -10,6 +10,7 @@ import { postSchema } from 'renderer/schemas/post';
 import usePostStore from 'renderer/store/post';
 import useUIStore from 'renderer/store/ui';
 import { HirePost, Platform, platformNames } from 'renderer/types/post';
+import { pathNames, Route } from 'renderer/types/route';
 
 type FormValues = Omit<HirePost, 'id'>;
 
@@ -47,8 +48,10 @@ const HiringRegister: NextPage = () => {
 
   return (
     <>
-      <PageHead title="채용공고 등록" />
-      <Breadcrumbs />
+      <PageHead title={pathNames[Route.REGISTER]} />
+      <header className="w-full">
+        <Breadcrumbs />
+      </header>
       <div className="divider" />
       <div className="overflow-visible shadow-xl card">
         <form

@@ -18,6 +18,7 @@ import {
   OrderValues,
   Platform,
 } from 'renderer/types/post';
+import { pathNames, Route } from 'renderer/types/route';
 
 const HiringPost: NextPage = () => {
   const { register, handleSubmit } = useForm<OrderValues>();
@@ -93,7 +94,7 @@ const HiringPost: NextPage = () => {
 
   return (
     <>
-      <PageHead title="채용공고 관리" />
+      <PageHead title={pathNames[Route.POST]} />
       <div>
         <header className="flex flex-col mb-8">
           <Breadcrumbs />
