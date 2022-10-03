@@ -1,8 +1,10 @@
+import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, ReactNode } from 'react';
 import useUIStore from 'renderer/store/ui';
 import { pathNames, paths, Route } from 'renderer/types/route';
+import { Theme } from 'renderer/types/ui';
 
 interface Menu {
   title: string;
@@ -44,6 +46,8 @@ const Drawer: FC<Props> = ({ children }) => {
     closeAll: state.toggleDrawer,
   }));
 
+  const { theme } = useTheme();
+
   const onClick = () => {
     closeAll();
   };
@@ -73,11 +77,13 @@ const Drawer: FC<Props> = ({ children }) => {
                     <Link href={url} passHref>
                       <a className="flex items-center justify-between w-full h-full group">
                         <h3>{title}</h3>
-                        <div className="invisible text-black group-hover:visible">
+                        <div
+                          className={`invisible text-black group-hover:visible ${
+                            theme === Theme.LIGHT_THEME ? 'text-black' : 'text-white'
+                          }`}
+                        >
                           <kbd className="kbd kbd-sm">ctrl</kbd>
-                          <span className={`${url === pathname ? 'text-white' : 'text-black'}`}>
-                            &nbsp; + &nbsp;
-                          </span>
+                          <span>&nbsp; + &nbsp;</span>
                           <kbd className="kbd kbd-sm">{key}</kbd>
                         </div>
                       </a>

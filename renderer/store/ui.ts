@@ -5,6 +5,7 @@ interface VisibilityUI {
   drawer: boolean;
   memo: boolean;
   alert: boolean;
+  applicantForm: string | false;
 }
 
 export type AlertType = 'info' | 'success' | 'error';
@@ -19,6 +20,7 @@ export interface UIState {
   toggleDrawer: () => void;
   toggleMemo: () => void;
   toggleAlert: () => void;
+  toggleApplicantForm: (id: string | undefined) => void;
   setAlert: (type: AlertType, message: string) => void;
   closeAll: () => void;
 }
@@ -30,6 +32,7 @@ const useUIStore = create<UIState>((set) => ({
     drawer: false,
     memo: false,
     alert: false,
+    applicantForm: false,
   },
   alert: {
     type: 'info',
@@ -56,6 +59,19 @@ const useUIStore = create<UIState>((set) => ({
       uiPersistProduce((state) => {
         if (state.visible) {
           state.visible.alert = !state.visible.alert;
+        }
+      })
+    ),
+  toggleApplicantForm: (id: string | undefined) =>
+    set(
+      uiPersistProduce((state) => {
+        if (state.visible) {
+          const applicantForm = state.visible.applicantForm;
+          if (applicantForm || typeof id === 'undefined') {
+            state.visible.applicantForm = false;
+          } else {
+            state.visible.applicantForm = id;
+          }
         }
       })
     ),

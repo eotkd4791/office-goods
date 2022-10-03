@@ -28,13 +28,13 @@ const HiringRegister: NextPage = () => {
   });
 
   const onSubmit = (post: FormValues) => {
-    createPost({ ...post, isActive: checkIfActive(post.from, post.to), countOfApplicants: 0 });
+    createPost({ ...post, isActive: checkIfActive(post.from, post.to) });
     back();
     setAlert('success', '채용공고 등록 성공');
     toggleAlert();
   };
 
-  const onError = (errors: Object) => {
+  const onError = () => {
     setAlert('error', '채용공고 등록 실패');
     toggleAlert();
   };

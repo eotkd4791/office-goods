@@ -24,6 +24,7 @@ const HiringPost: NextPage = () => {
   const { register, handleSubmit } = useForm<OrderValues>();
 
   const { posts } = usePost();
+
   const [orderedPosts, setOrderedPosts] = useState<HirePost[]>(posts || ([] as HirePost[]));
 
   const sortAll = () => [...posts].sort(({ isActive }) => (isActive ? -1 : 1));
@@ -101,8 +102,10 @@ const HiringPost: NextPage = () => {
           <div className="divider" />
           <div className="flex-row justify-center form-control">
             <OrderPosts onSubmit={orderPosts} register={register} />
-            <Link href="/hiring/register" passHref>
-              <button className="btn btn-priamry">채용공고 등록</button>
+            <Link href="/hiring/register">
+              <a>
+                <button className="btn btn-priamry min-w-[10rem]">공고 등록</button>
+              </a>
             </Link>
           </div>
         </header>

@@ -66,7 +66,6 @@ export interface HirePost {
   department: string;
   type: string;
   contract: Contract;
-  countOfApplicants: number;
 }
 
 export interface Category {

@@ -1,17 +1,27 @@
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FC } from 'react';
+import { FC, MouseEventHandler } from 'react';
 import { fieldNames, HirePost, platformNames } from 'renderer/types/post';
 import { FcPlus as Plus } from 'react-icons/fc';
+import useUIStore from 'renderer/store/ui';
 
 interface Props {
   post: HirePost;
+  countOfApplicants: number;
 }
 
 const PostList: FC<Props> = ({
-  post: { id, platform, title, field, type, from, to, price, isActive, countOfApplicants },
+  post: { id, platform, title, field, type, from, to, price, isActive },
+  countOfApplicants,
 }) => {
+  const { toggleApplicantForm, closeAll } = useUIStore();
+
+  const onClick: MouseEventHandler<HTMLButtonElement> = () => {
+    closeAll();
+    toggleApplicantForm(id);
+  };
+
   return (
     <tr className="cursor-pointer hover:active" key={id}>
       <td>
@@ -52,6 +62,7 @@ const PostList: FC<Props> = ({
         </span>
       </td>
       <td>
+        {' '}
         <Link href="https://www.naver.com">
           <a target="_blank" className="link link-secondary">
             보기
@@ -59,8 +70,8 @@ const PostList: FC<Props> = ({
         </Link>
       </td>
       <td>
-        <button className="flex items-center px-1 btn btn-ghost" onClick={() => alert('11')}>
-          <h3 className="mr-2 hover:underline">{countOfApplicants ? countOfApplicants : 1000}</h3>
+        <button className="flex items-center px-1 btn btn-ghost" onClick={onClick}>
+          <h3 className="mr-2 hover:underline">{countOfApplicants ? countOfApplicants : 0}</h3>
           <Plus className="w-[1.8rem] h-full" />
         </button>
       </td>

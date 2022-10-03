@@ -90,7 +90,7 @@ const Header: FC = () => {
               <span className="badge badge-xs badge-primary indicator-item" />
             </div>
           </button>
-          {false && (
+          {true && (
             <button className="btn btn-error" onClick={resetData}>
               리셋
             </button>
