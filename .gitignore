@@ -6,3 +6,6 @@ app
 dist
 .env
 .eslintcache
+/test-results/
+/playwright-report/
+/playwright/.cache/

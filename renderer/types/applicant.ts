@@ -1,5 +1,4 @@
 export const enum ApplicantStatus {
-  DONE_APPLY = '지원 완료',
   FAIL_DOCS = '서류 탈락',
   PASS_DOCS = '서류 합격',
   FAIL_INTERVIEW = '면접 탈락',
@@ -12,7 +11,6 @@ export const enum ApplicantStatus {
 }
 
 export const applicantStatusList: Array<ApplicantStatus> = [
-  ApplicantStatus.DONE_APPLY,
   ApplicantStatus.FAIL_DOCS,
   ApplicantStatus.PASS_DOCS,
   ApplicantStatus.FAIL_INTERVIEW,
